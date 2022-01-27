@@ -1,5 +1,11 @@
--- lib.lua : a little library of LUA tricks
+-- fun.lua : a little library of useful LUA functions
 -- (c)2022 Tim Menzies, MIT license
+--   __            
+--  / _|_   _ _ __ 
+-- | |_| | | | '_ \ 
+-- |  _| |_| | | | |
+-- |_|  \__,_|_| |_|ctions
+--                                             
 local b4={}; for k,_ in pairs(_ENV) do b4[k]=k end
 local lib={}
 local failures=0

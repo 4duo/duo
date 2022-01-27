@@ -1,6 +1,12 @@
 #!/usr/bin/env lua
-local lib=require"lib"
-local the=lib.init[[
+--      _             
+--   __| |_   _  ___  
+--  / _` | | | |/ _ \ 
+-- | (_| | |_| | (_) |
+--  \__,_|\__,_|\___/  .lua
+--                    
+local fun=require"fun"
+local the=fun.init[[
 
 ./duo.lua [OPTIONS]
 (c)2022 Tim Menzies, MIT license
@@ -18,10 +24,8 @@ OPTIONS:
   -seed    random number seed    =  10019
   -task    start up actions      =  donothing]]
 
-local _=lib
-local map, mapp, fmt, new, sort, push = _.map, _.mmap, _.fmt, _.new, _.sort
-local push, o,   oo,  asserts         = _.push, _.o,  _.oo,   _.asserts
-local EGS, NUM, RANGE, SYM            = {},{},{},{}
+local _,EGS, NUM, RANGE, SYM = fun,{},{},{},{}
+local map,fmt,new,sort,push,o,oo = _.map,_.fmt,_.new,_.sort,_.push,_.oo,_.oo
 -- ----------------------------------------------------------------------------
 function RANGE.new(k,col,lo,hi,b,B,r,R)
   return new(k,{col=col,lo=lo,hi=hi or lo,b=b,B=B,r=r,R=R}) end
@@ -78,8 +82,8 @@ function NUM.ranges(i,j,lo,hi)
   gap,max = (hi - lo)/16, -1
   if hi-lo < 2*gap then
     z      = 1E-32
-    m0, m2 = lib.search(is, lo),lib.bsearch(is, hi+z)
-    n0, n2 =lib.bsearch(js, lo),lib.bsearch(js, hi+z)
+    m0, m2 = fun.search(is, lo),fun.bsearch(is, hi+z)
+    n0, n2 =fun.bsearch(js, lo),fun.bsearch(js, hi+z)
     --                  col,lo hi,b     B   r     R
     best    = nil
     for mid in lo,hi,gap do
@@ -96,25 +100,19 @@ function NUM.ranges(i,j,lo,hi)
   else return RANGE:new(i,  lo,hi,m2-m0,i.n,n2-n0,j.n) end end
   
 -- ----------------------------------------------------------------------------
-function SYM.new(k,at,s) 
-  return new(k,{at=at,txt=s,_has={}}) end
-
+function SYM.new(k,at,s) return new(k,{at=at,txt=s,_has={}}) end
 function SYM.add(i,x) 
-  if x ~= "?" then i._has[x] = 1+(i._has[x] or 0) end 
-  return x end
+  if x~="?" then i._has[x]=1+(i._has[x] or 0)end;return x end
 
-function SYM.dist(i,a,b)
-  return  a=="?" and b=="?" and 1 or a==b and 0 or 1 end
-
-function SYM.has(i)  return i.has end
-
+function SYM.dist(i,a,b) return  a=="?" and b=="?" and 1 or a==b and 0 or 1 end
+function SYM.has(i)      return i.has end
 function SYM.ranges(i,j)
-  return mapp(i._has,
+  return lib.mapp(i._has,
       function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[k] or 0),j.n) end) end
 -- -----------------------------------------------------------------------------
 function EGS.new(k,file,   i) 
   i= new(k,{_rows={}, cols=nil, x={},  y={}})
-  if file then for row in lib.rows(file) do i:add(row) end end
+  if file then for row in fun.rows(file) do i:add(row) end end
   return i end
 
 function EGS.add(i,t)
@@ -163,8 +161,8 @@ function EGS.half(i,rows)
   print(11)
   local some,left,right,c,cosine,lefts,rights
   rows    = rows or i._rows
-  some    = #rows > the.ample and lib.many(rows, the.ample) or rows
-  left    = i:far(lib.any(rows), some)
+  some    = #rows > the.ample and fun.many(rows, the.ample) or rows
+  left    = i:far(fun.any(rows), some)
   right,c = i:far(left,          some)
   function cosine(r,     a,b)
     a, b = i:dist(r,left), i:dist(r,right); return {(a^2+c^2-b^2)/(2*c),r} end
@@ -174,19 +172,20 @@ function EGS.half(i,rows)
   return lefts,rights,left,right,c end                              
 -- -----------------------------------------------------------------------------
 local no,go={},{}
+local asserts=fun.asserts
 
 function go.any(   t,x,n)
   t={}; for i=1,10 do t[1+#t] = i end
-  n=0; for i=1,5000 do x=lib.any(t); n= 1 <= x and x <=10 and n+1 or 0 end
+  n=0; for i=1,5000 do x=fun.any(t); n= 1 <= x and x <=10 and n+1 or 0 end
   asserts(n==5000,"any")  end
 
 function no.bsearch(   t,z)  
   --          1  2  3  4  5  6  7  8  9  10
   z,t=1E-16, {10,10,10,20,20,30,30,40,50,200}
-  print(lib.brange(t,200)) end
+  print(fun.brange(t,200)) end
 
 function go.oo(  u)      oo{10,20,30} end
-function go.rows()       for row in lib.rows(the.file) do oo(row) end end
+function go.rows()       for row in fun.rows(the.file) do oo(row) end end
 function go.egs(   i)    i=EGS:new(the.file); map(i.y,oo) end
 function go.dist(  i)
   i=EGS:new(the.file) 

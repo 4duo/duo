@@ -1,7 +1,7 @@
 duo:; $(MAKE) f=duo.lua pdf
 
 pdfs: 
-	$(MAKE) f=lib.lua pdf
+	$(MAKE) f=fun.lua pdf
 	$(MAKE) f=duo.lua pdf
 
 f=muse
