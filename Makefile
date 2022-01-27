@@ -1,12 +1,16 @@
 duo:; $(MAKE) f=duo.lua pdf
 
+pdfs: 
+	$(MAKE) f=lib.lua pdf
+	$(MAKE) f=duo.lua pdf
+
 f=muse
 pdf: ok 
 	a2ps  -BjR --line-numbers=1                       \
             --borders=no --pro=color --columns 2 \
             --right-footer="" --left-footer="" \
             --footer="page %p." \
-            --pretty-print=lua.ssh -M letter -o docs/$f.ps $f 
+            --pretty-print=etc/lua.ssh -M letter -o docs/$f.ps $f 
 	ps2pdf docs/$f.ps docs/$f.pdf
 	rm docs/$f.ps
 	git add docs/$f.pdf

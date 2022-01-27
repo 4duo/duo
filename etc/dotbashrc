@@ -28,10 +28,8 @@ alias ..='cd ..'
 alias ...='cd ../../../'
 
 alias bye="gp; tmux detach"
-alias eg="python3.9 eg.py "
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-alias etch=".  $here/etc/h "
 alias gp="git add *;git commit -am save;git push;git status"
 alias grep='grep --color=auto'
 alias h="history"
@@ -40,7 +38,6 @@ alias ls="ls -G"
 alias tmux="tmux -f $here/etc/tmux-conf"
 alias vi="vim -u $here/etc/vimrc "
 alias vims="vim +PluginInstall +qall"         
-alias mds="cd $here/src; ../etc/md *.lua; gp"
 
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
