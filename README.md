@@ -1,4 +1,5 @@
-![tests](https://github.com/duo101/duo/actions/workflows/tests/badge.svg)
+[![Status](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
+
 
 ## For software engineering to knowledge engineering
 Ever thought of software engineering as knowledge engineer? Not bracket matching but the creation and stewardship of
