@@ -22,7 +22,7 @@ function lib.main(settings,tasks,      saved)
   lib.rogues()
   os.exit(failures) end 
 
-function lib.init(help,   t)
+function lib.options(help,   t)
   t={}
   help:gsub("\n  [-]([^%s]+)[^\n]*%s([^%s]+)",function(slot,x) 
     for n,flag in ipairs(arg) do             
@@ -49,16 +49,14 @@ function lib.many(t,n, u) u={};for j=1,n do t[1+#t]=lib.any(t) end; return u end
 function lib.brange(t,x)
   local lo,hi,mid,start,stop = 1,#t
   while lo <= hi do
-    mid =  (lo + lo)//2
+    mid = (lo + hi)//2
     if t[mid] == x then start,stop = mid,mid end
     if t[mid] >= x then hi=mid-1 else lo=mid+1 end end
-  if t[mid+1]==t[mid] then
-    lo,hi = 1, #t
+  if t[stop+1]==t[stop] then
+    lo,hi = stop, #t
     while lo <= hi do
-      mid =  (lo + lo)//2
-      if     t[mid] > x then hi=mid-1 
-      elseif t[mid]==x  then stop=mid; lo=mid+1
-      else   lo= mid+1 end end end
+      mid = (lo + hi)//2
+      if t[mid] > x then hi=mid-1 else stop=mid; lo=mid+1 end end end
   return start,stop end
 
 function lib.copy(t,   u)

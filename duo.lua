@@ -6,7 +6,7 @@
 --  \__,_|\__,_|\___/  .lua
 --                    
 local fun=require"fun"
-local the=fun.init[[
+local the=fun.options[[
 
 ./duo.lua [OPTIONS]
 (c)2022 Tim Menzies, MIT license
