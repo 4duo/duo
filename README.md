@@ -1,5 +1,7 @@
-[![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions). 
-![](https://img.shields.io/badge/platform-osx , linux-lightgrey)
+[![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions).
+
+![Website shields.io](https://img.shields.io/platform-linux-lightgrey/http/shields.io.svg) 
+
 
 
 <img alt="Lua" src="https://img.shields.io/badge/lua-v5.4-blue"> 
