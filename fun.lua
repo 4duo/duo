@@ -12,12 +12,13 @@ local failures=0
 
 -- start-up stuff ---------------------------------------------------------
 function lib.main(settings,tasks,      saved)
+  saved={}
+  for k,v in pairs(settings) do saved[k]=v end
   for _,task in pairs(lib.slots(tasks)) do
     if task:match(settings.task) then 
-      saved={}
-      for k,v in pairs(settings) do saved[k]=v end
       math.randomseed(settings.seed)
-      tasks[task]()
+      local ok,msg=pcall(tasks[task])
+      if not ok then print("FAIL :"..msg) failures=failures+1 end
       for k,v in pairs(saved) do settings[k]=v end end end
   lib.rogues()
   os.exit(failures) end 
