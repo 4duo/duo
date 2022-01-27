@@ -1,4 +1,4 @@
-[![Status](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
+[![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
 
 
 ## For software engineering to knowledge engineering
