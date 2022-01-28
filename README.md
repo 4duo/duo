@@ -1,11 +1,16 @@
+<center>
+
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
    ![](https://img.shields.io/static/v1?label=platform&message=osx,linux&color=blue)
    [![](https://img.shields.io/static/v1?label=license&message=MIT&color=yellow)](LICENSE.md)
    ![](https://img.shields.io/static/v1?label=language&message=lua&color=orange)
    ![](https://img.shields.io/static/v1?label=purpose&message=se,ai&color=blueviolet)
-   [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)     
+   [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)   <br>
 
 
+![](etc/img/readthedocs.png)
+
+<center>
 
 
 ## For software engineering to knowledge engineering
