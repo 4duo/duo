@@ -8,7 +8,7 @@
    [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)   <br>
 
 
-<img img=300 src="etc/img/readthedocs.png">
+<img width=300 src="etc/img/readthedocs.png">
 
 <center>
 
