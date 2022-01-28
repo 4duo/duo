@@ -1,4 +1,4 @@
-<center>
+<p align=center>
 
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
    ![](https://img.shields.io/static/v1?label=platform&message=osx,linux&color=blue)
@@ -8,9 +8,9 @@
    [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)   <br>
 
 
-<img width=300 src="etc/img/readthedocs.png">
+<img width=250 src="etc/img/readthedocs.png">
 
-<center>
+</p>
 
 
 ## For software engineering to knowledge engineering
