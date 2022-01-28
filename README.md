@@ -1,7 +1,4 @@
-# For software engineering to knowledge engineering
-
 <img src="etc/img/lua.png" align=right width=250>
-
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
    ![](https://img.shields.io/static/v1?label=platform&message=osx,linux&color=blue)
    [![](https://img.shields.io/static/v1?label=license&message=MIT&color=yellow)](LICENSE.md)
@@ -10,6 +7,7 @@
    [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)     
 <img width=200 src="etc/img/readthedocs.png">
 
+# For software engineering to knowledge engineering
 
 
 Ever thought of software engineering as knowledge engineer? Not bracket matching but the creation and stewardship of
