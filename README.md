@@ -4,8 +4,7 @@
    ![](https://img.shields.io/static/v1?label=language&message=lua&color=orange)
    ![](https://img.shields.io/static/v1?label=purpose&message=se,ai&color=blueviolet).      
 
-<a href="https://zenodo.org/badge/latestdoi/318809834"><img src="https://zenodo.org/badge/318809834.svg"></a>
-<hr>
+
 
 
 ## For software engineering to knowledge engineering
