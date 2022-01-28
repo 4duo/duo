@@ -1,6 +1,6 @@
 # For software engineering to knowledge engineering
 
-<img src="etc/img/lua/png" align=right width=250>
+<img src="etc/img/lua.png" align=right width=250>
 
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
    ![](https://img.shields.io/static/v1?label=platform&message=osx,linux&color=blue)
