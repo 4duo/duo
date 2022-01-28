@@ -1,6 +1,8 @@
-[![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions).
+[![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
 
-![Website shields.io](https://img.shields.io/platform-linux-lightgrey/http/shields.io.svg) 
+[![Website shields.io](https://img.shields.io/platform-linux-osx-green-red/http/shields.io.svg)](http://shields.io/)
+
+ 
 
 
 
