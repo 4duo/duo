@@ -77,9 +77,14 @@ function NUM.norm(i,x)
 -- compare to old above
 function NUM.ranges(i,j,lo,hi)
   local z,is,js,lo,hi,m0,m1,m2,n0,n1,n2,step,most,best,r1,r2
-  is,js   = i:has(), j:has()
-  lo,hi   = lo or is[1], hi or is[#is]
-  gap,max = (hi - lo)/16, -1
+  is,js    = i:has(), j:has()
+  lo       = math.min(is[1],   js[1])
+  hi       = math.max(is[#is], js[#js])
+  gap, max = (hi - lo)/16, -1
+  for x=lo,hi,gap do
+    --     col, lo hi, b     B   r         R
+    local b = 
+    RANGE:new(i,lo,hi, 
   if hi-lo < 2*gap then
     z      = 1E-32
     m0, m2 = fun.search(is, lo),fun.bsearch(is, hi+z)
@@ -90,7 +95,6 @@ function NUM.ranges(i,j,lo,hi)
       if mid > lo and k < hi then
         m1 = bsearch(is, mid+z)
         n1 = bsearch(js, mid+z)
-        --             col,  lo hi, b     B   r         R
         r1 = RANGE:new(i,    lo,mid,m1-m0,i.n,m2-(m1+1),j.n)
         r2 = RANGE:new(i, mid+z,hi, n1-n0,i.n,n2-(n1+1),j.n)
         if r1:val() > max then best, max = r1, r1:val() end
@@ -107,8 +111,8 @@ function SYM.add(i,x)
 function SYM.dist(i,a,b) return  a=="?" and b=="?" and 1 or a==b and 0 or 1 end
 function SYM.has(i)      return i.has end
 function SYM.ranges(i,j)
-  return lib.mapp(i._has,
-      function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[k] or 0),j.n) end) end
+  return lib.mapp(i._has,       -- col lohib B   r                R
+      function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end
 -- -----------------------------------------------------------------------------
 function EGS.new(k,file,   i) 
   i= new(k,{_rows={}, cols=nil, x={},  y={}})

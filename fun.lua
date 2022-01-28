@@ -60,6 +60,9 @@ function lib.brange(t,x)
       if t[mid] > x then hi=mid-1 else stop=mid; lo=mid+1 end end end
   return start,stop end
 
+function lib.span(t,x,y)
+  x0,x1 = lib.brange(t,x)
+  y0,y1 = lib.brange(t,y)
 function lib.copy(t,   u)
   if type(t)~="table" then return t end
   u={}; for k,v in pairs(t) do u[k]=copy(v) end
