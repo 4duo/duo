@@ -11,8 +11,20 @@
 # For software engineering to knowledge engineering
 
 
-Ever thought of software engineering as knowledge engineer? Not bracket matching but the creation and stewardship of
+> Ever thought of software engineering as knowledge engineer? Not bracket matching but the creation and stewardship of
 what humans think is important (as well as methods for how to get it)?
+
+
+💌 Love Letter  
+🕳️ Hole. 
+💣 Bomb. 
+🛀 Person Taking Bath. 
+🛌 Person in Bed. 
+🔪 Kitchen Knife. 
+🏺 Amphora. 
+🗺️ World Map. 
+🧭 Compass. 
+🧱 Brick. 
 
 Here by "knowledge" I mean the thing defined by Allen Newell in the classic "Knowedge LEvel" talk (AAAI 1992). To Newell,
 intelligence was a goal seeking process that (a) identified the goals we want then (b) reflected on
