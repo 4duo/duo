@@ -14,6 +14,7 @@
 > Ever thought of software engineering as knowledge engineer? Not bracket matching but the creation and stewardship of
 what humans think is important (as well as methods for how to get it)?
 
+Hello 
 
 💌 Love Letter  
 🕳️ Hole. 
