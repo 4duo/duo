@@ -197,18 +197,25 @@ function go.bsearch(   t,x,a,b)
 
 function no.fail()       asserts(fail,"checking crashes"); print(no.thi.ng) end
 function go.oo(  u)      oo{10,20,30} end
-function go.rows()       for row in fun.rows(the.file) do oo(row) end end
-function go.egs(   i)    i=EGS:new(the.file); map(i.y,oo) end
+function go.rows( t)       
+  for row in fun.rows(the.file) do t=row  end 
+  asserts(type(t[1])=="number","is number")
+  asserts(t[1]==4, "is four")
+  asserts(#t==8,"is eight") end
+
+function go.egs(   i,t)    
+  i=EGS:new(the.file); map(i.y,oo); asserts(i.y[1].lo==1613,"lo") 
+  t=i.y[1]:has(); asserts(1613==t[1],"lo2") asserts(5140== t[#t],"hi");
+  asserts(i.y[1].ok,"ok") end
+
 function go.dist(  i, t,a,b,d)
   i=EGS:new(the.file) 
   t= i._rows
   for j=1,100 do
-     io.write(".")
      a,b= any(t), any(t)
      d= i:dist(a,b)
      assert(0<= d and d <= 1) end end
 
-
-function go.half(  a,b)  a,b=EGS:new(the.file):half() end
+function no.half(  a,b)  a,b=EGS:new(the.file):half() end
 
 the(go)
