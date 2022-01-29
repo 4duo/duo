@@ -126,11 +126,9 @@ function EGS.add(i,t)
   then push(i._rows, map(i.cols, add)) 
   else i.cols = {}
        for n,x in pairs(t) do 
-         now = (x:find"^[A-Z]" and NUM or SYM):new(n,x)
-         push(i.cols, now)
+         now = push(i.cols, (x:find"^[A-Z]" and NUM or SYM):new(n,x))
          if not x:find":" then 
-           where = (x:find"+" or x:find"-") and i.y or i.x
-           push(where, now) end end end end
+           push((x:find"+" or x:find"-") and i.y or i.x, now) end end end end
 
 function EGS.clone(i,inits,    j)
   j = EGS:new()
