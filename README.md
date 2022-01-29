@@ -6,7 +6,7 @@
    ![](https://img.shields.io/static/v1?label=language&message=lua&color=orange)
    ![](https://img.shields.io/static/v1?label=purpose&message=se,ai&color=blueviolet)
    [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)      
-**[Explore the docs »](docs)**  
+<img width=200 src="/etc/img/readthedocs.png">
 
 # For software engineering to knowledge engineering
 
