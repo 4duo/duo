@@ -16,16 +16,19 @@ what humans think is important (as well as methods for how to get it)?
 
 Hello 
 
-💌 Love Letter  
-🕳️ Hole.    
-💣 Bomb.     
-🛀 Person Taking Bath.     
-🛌 Person in Bed.      
-🔪 Kitchen Knife.     
-🏺 Amphora.      
-🗺️ World Map.     
-🧭 Compass.     
-🧱 Brick. 
+:vertical_traffic_light:  pause.  
+:traffic_light: wait.     
+:warning:	warning.      
+:construction: building.  
+:beginner:	 starting.      
+:sunrise:  origin.     
+:stars:	 tempting.      
+:statue_of_liberty:   hopeful.     
+:rainbow:  joyous.      
+:rocket:	goging places.      
+:airplane:	  taking off.    
+:helicopter:   buzzing.     
+
 
 Here by "knowledge" I mean the thing defined by Allen Newell in the classic "Knowedge LEvel" talk (AAAI 1992). To Newell,
 intelligence was a goal seeking process that (a) identified the goals we want then (b) reflected on
