@@ -29,6 +29,9 @@ Hello
 :airplane:	  taking off.    
 :helicopter:   buzzing.     
 
+Here is a simple footnote[^1]. With some additional text after it.
+
+[^1]: My reference.
 
 Here by "knowledge" I mean the thing defined by Allen Newell in the classic "Knowedge LEvel" talk (AAAI 1992). To Newell,
 intelligence was a goal seeking process that (a) identified the goals we want then (b) reflected on
@@ -40,7 +43,7 @@ should be able to reflect over them before deciding how to best use them.
 In my view this is an engineering process (where engineering means "building a useful project to an acceptable standard
 given the local constants"). Good knowledge engineers are lazy in that they try to do
 the most, with  least effort, while consuming the fewest resources. Also, I would say that good engineers are stewards, not
-owners, of their resources and, a good stewart, they try to leave behind the most resources (in the healthiest condition)
+owners, of their resources[^1] and, a good stewart, they try to leave behind the most resources (in the healthiest condition)
 for those that will come after them.
   
 To do that, good knowledge engineers know their tools, insider and out, since this lets them reconfigure their tools to
