@@ -9,5 +9,5 @@ cat $$.txt | gawk '
  print
 }'
 rm $$.txt
-
+   
 printf  "\n==> \033[33m$x \033[0m\n"  
