@@ -1,3 +1,6 @@
+tests:
+	ls *.lua |entr -c etc/tasks.sh
+
 duo:; $(MAKE) f=duo.lua pdf
 
 pdfs: 
