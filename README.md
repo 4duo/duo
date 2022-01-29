@@ -17,14 +17,14 @@ what humans think is important (as well as methods for how to get it)?
 Hello 
 
 💌 Love Letter  
-🕳️ Hole. 
-💣 Bomb. 
-🛀 Person Taking Bath. 
-🛌 Person in Bed. 
-🔪 Kitchen Knife. 
-🏺 Amphora. 
-🗺️ World Map. 
-🧭 Compass. 
+🕳️ Hole.    
+💣 Bomb.     
+🛀 Person Taking Bath.     
+🛌 Person in Bed.      
+🔪 Kitchen Knife.     
+🏺 Amphora.      
+🗺️ World Map.     
+🧭 Compass.     
 🧱 Brick. 
 
 Here by "knowledge" I mean the thing defined by Allen Newell in the classic "Knowedge LEvel" talk (AAAI 1992). To Newell,
