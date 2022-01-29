@@ -113,7 +113,7 @@ function SYM.dist(i,a,b) return  a=="?" and b=="?" and 1 or a==b and 0 or 1 end
 function SYM.has(i)      return i.has end
 function SYM.ranges(i,j)
   return lib.mapp(i._has,       -- col lohib B   r                R
-      function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end
+      function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end 
 -- -----------------------------------------------------------------------------
 function EGS.new(k,file,   i) 
   i= new(k,{_rows={}, cols=nil, x={},  y={}})
@@ -122,13 +122,14 @@ function EGS.new(k,file,   i)
 
 function EGS.add(i,t)
   local add,now,where = function(col) return col:add(t[col.at]) end
-  if   i.cols 
-  then push(i._rows, map(i.cols, add)) 
-  else i.cols = {}
-       for n,x in pairs(t) do 
-         now = push(i.cols, (x:find"^[A-Z]" and NUM or SYM):new(n,x))
-         if not x:find":" then 
-           push((x:find"+" or x:find"-") and i.y or i.x, now) end end end end
+  if i.cols then
+    push(i._rows, map(i.cols, add))  
+  else 
+    i.cols = {}
+    for n,x in pairs(t) do 
+      now = push(i.cols, (x:find"^[A-Z]" and NUM or SYM):new(n,x))
+      if not x:find":" then 
+        push((x:find"+" or x:find"-") and i.y or i.x, now) end end end end
 
 function EGS.clone(i,inits,    j)
   j = EGS:new()

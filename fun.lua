@@ -4,14 +4,14 @@
 -- |  _| |_| | | | |
 -- |_|  \__,_|_| |_|ctions. My fav LUA tricks. (c)2022 Tim Menzies, MIT license
 
-local b4={}; for k,_ in pairs(_ENV) do b4[k]=k end
-local lib={}
+local b4={}; for k,_ in pairs(_ENV) do b4[k]=k end 
+local lib={}  
 local failures=0
 
 -- start-up stuff ---------------------------------------------------------
 function lib.main(settings,tasks,      saved)
   saved={}
-  for k,v in pairs(settings) do saved[k]=v end
+  for k,v in pairs(settings) do saved[k]=v end  
   for _,task in pairs(lib.slots(tasks)) do
     if task:match(settings.task) then 
       math.randomseed(settings.seed)
