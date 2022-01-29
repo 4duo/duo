@@ -5,8 +5,7 @@
 -- | (_| | |_| | (_) |
 --  \__,_|\__,_|\___/  .lua
 --                    
-local fun=require"fun"
-local the=fun.options[[
+local fun=require"fun"; local the=fun.options[[
 
 ./duo.lua [OPTIONS]
 (c)2022 Tim Menzies, MIT license
@@ -15,17 +14,19 @@ Data miners using/used by optimizers.
 Understand N items after log(N) probes, or less.
 
 OPTIONS:
-  -ample   when enough is enough =  512
-  -enough  use (#t)^enough       =  .5
-  -far     how far to go         =  .9
-  -file    read data from file   =  data/auto93.csv
-  -help    show help             =  false
-  -p       distance coefficient  =   2
-  -seed    random number seed    =  10019
-  -task    start up actions      =  donothing]]
+  -ample   when enough is enough         =  512
+  -Debug   on error, dump stack and halt = false
+  -enough  use (#t)^enough               =  .5
+  -far     how far to go                 =  .9
+  -file    read data from file           =  data/auto93.csv
+  -help    show help                     =  false
+  -p       distance coefficient          =   2
+  -seed    random number seed            =  10019
+  -task    start up actions              =  donothing]]
 
 local _,EGS, NUM, RANGE, SYM = fun,{},{},{},{}
 local map,fmt,new,sort,push,o,oo = _.map,_.fmt,_.new,_.sort,_.push,_.oo,_.oo
+local any = _.any
 -- ----------------------------------------------------------------------------
 function RANGE.new(k,col,lo,hi,b,B,r,R)
   return new(k,{col=col,lo=lo,hi=hi or lo,b=b,B=B,r=r,R=R}) end
@@ -34,7 +35,7 @@ function RANGE.__lt(i,j) return i:val() < j:val() end
 function RANGE.merge(i,j,k,   lo,hi) 
   lo = math.min(i.lo, j.lo)
   hi = math.max(i.hi, j.lhi)
-  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B+j.B,i.r+j.r, i.R+j.R) 
+  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R) 
   if k:val() > i:val() and j:val() then return k end end
 
 function RANGE.__tostring(i)
@@ -75,34 +76,34 @@ function NUM.norm(i,x)
   return i.hi - i.lo<1E-9 and 0 or (x - i.lo)/(i.hi - i.lo) end
 
 -- compare to old above
-function NUM.ranges(i,j,lo,hi)
-  local z,is,js,lo,hi,m0,m1,m2,n0,n1,n2,step,most,best,r1,r2
-  is,js    = i:has(), j:has()
-  lo       = math.min(is[1],   js[1])
-  hi       = math.max(is[#is], js[#js])
-  gap, max = (hi - lo)/16, -1
-  for x=lo,hi,gap do
-    --     col, lo hi, b     B   r         R
-    local b = 
-    RANGE:new(i,lo,hi, 
-  if hi-lo < 2*gap then
-    z      = 1E-32
-    m0, m2 = fun.search(is, lo),fun.bsearch(is, hi+z)
-    n0, n2 =fun.bsearch(js, lo),fun.bsearch(js, hi+z)
-    --                  col,lo hi,b     B   r     R
-    best    = nil
-    for mid in lo,hi,gap do
-      if mid > lo and k < hi then
-        m1 = bsearch(is, mid+z)
-        n1 = bsearch(js, mid+z)
-        r1 = RANGE:new(i,    lo,mid,m1-m0,i.n,m2-(m1+1),j.n)
-        r2 = RANGE:new(i, mid+z,hi, n1-n0,i.n,n2-(n1+1),j.n)
-        if r1:val() > max then best, max = r1, r1:val() end
-        if r2:val() > max then best, max = r2, r2:val() end end end end
-  if   best 
-  then return i:ranges(j, best.lo, best.hi) 
-  else return RANGE:new(i,  lo,hi,m2-m0,i.n,n2-n0,j.n) end end
-  
+-- function NUM.ranges(i,j,lo,hi)
+--   local z,is,js,lo,hi,m0,m1,m2,n0,n1,n2,step,most,best,r1,r2
+--   is,js    = i:has(), j:has()
+--   lo       = math.min(is[1],   js[1])
+--   hi       = math.max(is[#is], js[#js])
+--   gap, max = (hi - lo)/16, -1
+--   for x=lo,hi,gap do
+--     --     col, lo hi, b     B   r         R
+--     local b = 
+--     RANGE:new(i,lo,hi, 
+--   if hi-lo < 2*gap then
+--     z      = 1E-32
+--     m0, m2 = fun.search(is, lo),fun.bsearch(is, hi+z)
+--     n0, n2 =fun.bsearch(js, lo),fun.bsearch(js, hi+z)
+--     --                  col,lo hi,b     B   r     R
+--     best    = nil
+--     for mid in lo,hi,gap do
+--       if mid > lo and k < hi then
+--         m1 = bsearch(is, mid+z)
+--         n1 = bsearch(js, mid+z)
+--         r1 = RANGE:new(i,    lo,mid,m1-m0,i.n,m2-(m1+1),j.n)
+--         r2 = RANGE:new(i, mid+z,hi, n1-n0,i.n,n2-(n1+1),j.n)
+--         if r1:val() > max then best, max = r1, r1:val() end
+--         if r2:val() > max then best, max = r2, r2:val() end end end end
+--   if   best 
+--   then return i:ranges(j, best.lo, best.hi) 
+--   else return RANGE:new(i,  lo,hi,m2-m0,i.n,n2-n0,j.n) end end
+--   
 -- ----------------------------------------------------------------------------
 function SYM.new(k,at,s) return new(k,{at=at,txt=s,_has={}}) end
 function SYM.add(i,x) 
@@ -183,20 +184,30 @@ function go.any(   t,x,n)
   n=0; for i=1,5000 do x=fun.any(t); n= 1 <= x and x <=10 and n+1 or 0 end
   asserts(n==5000,"any")  end
 
-function no.bsearch(   t,z)  
-  --          1  2  3  4  5  6  7  8  9  10
-  z,t=1E-16, {10,10,10,20,20,30,30,40,50,200}
-  print(fun.brange(t,200)) end
+function go.bsearch(   t,x,a,b)  
+  t={}
+  for j =1,10^6 do push(t,100*math.random()//1) end
+  table.sort(t); 
+  for j =1,1000 do
+     x=fun.any(t)
+     a,b = fun.brange(t,x)
+     assert(t[a-1] ~= x) 
+     assert(t[b+1] ~= x)
+     for k=a,b do assert(t[k] == x) end end end
 
+function no.fail()       asserts(fail,"checking crashes"); print(no.thi.ng) end
 function go.oo(  u)      oo{10,20,30} end
 function go.rows()       for row in fun.rows(the.file) do oo(row) end end
 function go.egs(   i)    i=EGS:new(the.file); map(i.y,oo) end
-function go.dist(  i)
+function go.dist(  i, t,a,b,d)
   i=EGS:new(the.file) 
-  for _,x in pairs(
-              sort(
-                map(i._rows, function(row) return i:dist(i._rows[1],row) end))) do
-    print(x) end end
+  t= i._rows
+  for j=1,100 do
+     io.write(".")
+     a,b= any(t), any(t)
+     d= i:dist(a,b)
+     assert(0<= d and d <= 1) end end
+
 
 function go.half(  a,b)  a,b=EGS:new(the.file):half() end
 

@@ -1,11 +1,9 @@
--- fun.lua : a little library of useful LUA functions
--- (c)2022 Tim Menzies, MIT license
 --   __            
 --  / _|_   _ _ __ 
 -- | |_| | | | '_ \ 
 -- |  _| |_| | | | |
--- |_|  \__,_|_| |_|ctions
---                                             
+-- |_|  \__,_|_| |_|ctions. My fav LUA tricks. (c)2022 Tim Menzies, MIT license
+
 local b4={}; for k,_ in pairs(_ENV) do b4[k]=k end
 local lib={}
 local failures=0
@@ -18,7 +16,9 @@ function lib.main(settings,tasks,      saved)
     if task:match(settings.task) then 
       math.randomseed(settings.seed)
       local ok,msg=pcall(tasks[task])
-      if not ok then print("FAIL :"..msg) failures=failures+1 end
+      if not ok then  
+        print("FAIL :"..msg) failures=failures+1 
+        if settings.Debug then assert(false,msg) end end
       for k,v in pairs(saved) do settings[k]=v end end end
   lib.rogues()
   os.exit(failures) end 
@@ -53,16 +53,18 @@ function lib.brange(t,x)
     mid = (lo + hi)//2
     if t[mid] == x then start,stop = mid,mid end
     if t[mid] >= x then hi=mid-1 else lo=mid+1 end end
-  if t[stop+1]==t[stop] then
+  if t[start+1]==t[start] then
     lo,hi = stop, #t
     while lo <= hi do
-      mid = (lo + hi)//2
+      mid = (lo + hi)//2 
       if t[mid] > x then hi=mid-1 else stop=mid; lo=mid+1 end end end
   return start,stop end
 
-function lib.span(t,x,y)
-  x0,x1 = lib.brange(t,x)
-  y0,y1 = lib.brange(t,y)
+function lib.support(t,x,y)
+  if x < t[1]  then x0,x1 = 1,1  else x0,x1 = lib.brange(t,x) end
+  if y > t[#t] then y0,y1= #t,#t else y0,y1 = lib.brange(t,y) end
+  return (1 + y1-x0) end
+
 function lib.copy(t,   u)
   if type(t)~="table" then return t end
   u={}; for k,v in pairs(t) do u[k]=copy(v) end
