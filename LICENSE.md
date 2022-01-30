@@ -16,7 +16,7 @@
 <a href="https://zenodo.org/badge/latestdoi/452530453"><img src="https://zenodo.org/badge/452530453.svg"></a>
 </p>
 
-# MIT License
+#  :triangular_flag_on_post: MIT License
 
 Copyright (c) 2022 duo101
 
