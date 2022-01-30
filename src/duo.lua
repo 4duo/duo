@@ -74,6 +74,8 @@ function NUM.dist(i,a,b)
 function NUM.has(i) 
   if not i.ok then sort(i._has); i.ok=true end; return i._has end
 
+function NUM.mid(i) local a = i:has(); return a[#a//2] end
+
 function NUM.norm(i,x)
   return i.hi - i.lo<1E-9 and 0 or (x - i.lo)/(i.hi - i.lo) end
 
@@ -107,12 +109,17 @@ function NUM.norm(i,x)
 --   else return RANGE:new(i,  lo,hi,m2-m0,i.n,n2-n0,j.n) end end
 --   
 -- ----------------------------------------------------------------------------
-function SYM.new(k,at,s) return new(k,{at=at,txt=s,_has={}}) end
+function SYM.new(k,at,s) return new(k,{at=at,txt=s,_has={},mode=nil,most=0}) end
 function SYM.add(i,x) 
-  if x~="?" then i._has[x]=1+(i._has[x] or 0)end;return x end
+  if x~="?" then 
+     i._has[x]=1+(i._has[x] or 0)
+     if i._has[x] > i.most then i.most, i.mode = i._has[x],x end
+  end
+  return x end
 
 function SYM.dist(i,a,b) return  a=="?" and b=="?" and 1 or a==b and 0 or 1 end
 function SYM.has(i)      return i.has end
+function SYM.mid(i)      return i.mode end
 function SYM.ranges(i,j)
   return lib.mapp(i._has,       -- col lohib B   r                R
       function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end 
@@ -139,7 +146,7 @@ function EGS.clone(i,inits,    j)
   for _,row in pairs(inits or {}) do j = j:add(row) end 
   return j end
 
-function EGS.cols(i,cols)
+function EGS.mid(i,cols)
   return map(cols or i.y, function(col) return col:mid() end) end
 
 function EGS.dist(i,r1,r2)
@@ -186,7 +193,7 @@ function show(t,lvl)
   if t then
     --if t.lefts 
     print(fmt("%s%s",lvl,#t.here._rows))
-    --else print(fmt("%s%s\t%s",lvl,#t.here._rows, #t.here:cols())) end
+    --else print(fmt("%s%s\t%s", lvl,#t.here._rows, t.here:mid())) end
     show(t.lefts, lvl.."|.. ")
     show(t.rights,lvl.."|.. ") end end
 
@@ -194,10 +201,10 @@ function show(t,lvl)
 local no,go={},{}
 local asserts=F.asserts
 
-function go.cluster()  show( EGS:new(the.file):cluster() ) end 
+function go.cluster()  show(EGS:new(the.file):cluster())  end 
 
 function go.half(  a,b)  
-  lefts,rights,left,right,c=EGS:new(the.file):half() 
+  local lefts,rights,left,right,c=EGS:new(the.file):half() 
   print("rows",#lefts._rows, #rights._rows)
   oo{left=left}
   oo{right=right}
@@ -229,7 +236,9 @@ function go.rows( t)
   asserts(#t==8,"is eight") end                           
 
 function go.egs(   i,t)    
-  i=EGS:new(the.file); map(i.y,oo); asserts(i.y[1].lo==1613,"lo") 
+  i=EGS:new(the.file); map(i.y,oo)
+  print(10)
+  asserts(i.y[1].lo==1613,"lo") 
   t=i.y[1]:has(); asserts(1613==t[1],"lo2") asserts(5140== t[#t],"hi");
   asserts(i.y[1].ok,"ok") end    
 
