@@ -74,7 +74,7 @@ function NUM.dist(i,a,b)
 function NUM.has(i) 
   if not i.ok then sort(i._has); i.ok=true end; return i._has end
 
-function NUM.mid(i) local a = i:has(); return a[#a//2] end
+function NUM.mid(i,   a) a=i:has(); return a[#a//2] end
 
 function NUM.norm(i,x)
   return i.hi - i.lo<1E-9 and 0 or (x - i.lo)/(i.hi - i.lo) end
@@ -175,13 +175,13 @@ function EGS.half(i,rows)
   return lefts,rights,left,right,c end                              
 
 local rnd,show
-function EGS.cluster(i, top,lvl)
+function EGS.cluster(i, top)
   local c,lefts0, rights0, lefts, rights, left, right=0
-  top, lvl = top or i, lvl or ""
+  top = top or i
   if #i._rows >=  2*(#top._rows)^the.enough then
     lefts0, rights0, left, right, c = top:half(i._rows) 
-    lefts  = lefts0:cluster( top,lvl.."|.. ")
-    rights = rights0:cluster(top,lvl.."|.. ") 
+    lefts  = lefts0:cluster( top)
+    rights = rights0:cluster(top)
   end
   return {here=i, lefts=lefts, rights=rights, left=left, right=right, c=c} end
 
