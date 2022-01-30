@@ -27,7 +27,7 @@ OPTIONS:
   -task    start up actions              =  donothing]]
 
 local EGS, NUM, RANGE, SYM = {}, {}, {}, {}
-local any,    asserts,  brange,  firsts,  fmt,  many,  map =  
+local any,    asserts,  brange,  firsts,  fmt,  many,  map =        
       F.any,F.asserts,F.brange,F.firsts,F.fmt,F.many,F.map
 local   new,  o,  oo,  push,  rows,  seconds,  sort =  
       F.new,F.o,F.oo,F.push,F.rows,F.seconds,F.sort
@@ -39,7 +39,7 @@ function RANGE.__lt(i,j) return i:val() < j:val() end
 function RANGE.merge(i,j,k,   lo,hi) 
   lo = math.min(i.lo, j.lo)
   hi = math.max(i.hi, j.lhi)
-  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R) 
+  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R)   
   if k:val() > i:val() and j:val() then return k end end
 
 function RANGE.__tostring(i)

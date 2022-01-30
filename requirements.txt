@@ -1,0 +1,13 @@
+# essential
+lua >= 5.4
+
+# needed for the unit testing
+gawk >= 5
+entr >= 5.1
+figlet >= 2.2.5
+
+# optional
+git >= 2.3
+a2ps >= 4
+pandoc >= 2.1
+ps2pdf

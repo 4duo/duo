@@ -13,13 +13,14 @@ local failures=0  -- counter for failures (used by fun.asserts and fun.main).
 function fun.main(settings,tasks,      saved)
   saved={}
   for k,v in pairs(settings) do saved[k]=v end  
+  print("FILE "..tostring(arg[0]))
   for _,task in pairs(fun.slots(tasks)) do
     if task:match(settings.task) then 
       math.randomseed(settings.seed)
-      print("TASK: "..task)
+      print("| TASK "..task)
       local ok,msg=pcall(tasks[task])
       if not ok then  
-        print(":FAIL "..msg) failures=failures+1 
+        print("| | FAIL "..msg) failures=failures+1 
         if settings.Debug then assert(false,msg) end end
       for k,v in pairs(saved) do settings[k]=v end end end
   fun.rogues()
@@ -38,8 +39,8 @@ function fun.options(help,   t)
 --- ## Testing
 function fun.asserts(test,msg) 
   if   test 
-  then print(":PASS "..(msg or "")) 
-  else print(":FAIL "..(msg or "")); failures=failures + 1; end end
+  then print("| | PASS "..(msg or "")) 
+  else print("| | FAIL "..(msg or "")); failures=failures + 1; end end
 
 function fun.rogues()
   for k,v in pairs(_ENV) do if not b4[k] then print("?",k,type(v)) end end end
