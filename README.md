@@ -15,7 +15,7 @@
 <a href="https://github.com/duo101/duo/actions"><img src="https://github.com/duo101/duo/workflows/tests/badge.svg"></a>
 </p>
 
-> # For software engineering to knowledge engineering
+# :triangular_flag_on_post: For software engineering to knowledge engineering
 
 
 > Ever thought of software engineering as knowledge engineer? Not bracket matching but the creation and stewardship of
