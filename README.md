@@ -4,8 +4,9 @@
 <a href="asdas">about</a> • 
 <a href="asdas">egs</a> • 
 <a href="asdas">issues</a> • 
-<a href="asdas">chat</a></br>
+<a href="asdas">chat</a></p>
 <img src="etc/img/duo.png" width=350><br><!-- https://simpleicons.org/  https://studio.tailorbrands.com -->
+<p align=center>
 <a href="https://zenodo.org/badge/latestdoi/452530453"><img src="https://zenodo.org/badge/452530453.svg"></a>
 <img src="https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue"><br>
 <img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange">
