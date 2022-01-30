@@ -8,9 +8,9 @@
 <a href="/LICENSE.md">&copy; 2022</a></p>
 <p align=center>
 <img src="etc/img/duo.png" width=350><br><!-- https://simpleicons.org/  https://studio.tailorbrands.com -->
-<a href="https://github.com/duo101/duo/actions"><img src="https://github.com/duo101/duo/workflows/tests/badge.svg"></a>
 <img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet">
-<img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange"><br>
+<img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange">
+<a href="https://github.com/duo101/duo/actions"><img src="https://github.com/duo101/duo/workflows/tests/badge.svg"></a><br>
 <img src="https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue">
 <a href="https://zenodo.org/badge/latestdoi/452530453"><img src="https://zenodo.org/badge/452530453.svg"></a>
 </p>
