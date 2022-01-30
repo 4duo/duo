@@ -9,11 +9,11 @@
 <img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet"><br>
 </p>
 <p align=center>
-<a href="asdas">asdas</a> :moyai: 
-<a href="asdas">a sdas asd</a> :moyai: 
-<a href="asdas">oanadoasd</a> :moyai: 
-<a href="asdas">qwndssdo</a> :moyai: 
-<a href="asdas">qwndssdo</a> :moyai: 
+<a href="asdas">asdas</a> :: 
+<a href="asdas">a sdas asd</a> :: 
+<a href="asdas">oanadoasd</a> :: 
+<a href="asdas">qwndssdo</a> :: 
+<a href="asdas">qwndssdo</a> :: 
 <a href="asdas">qwndssdo</a>  </p>
 
 
