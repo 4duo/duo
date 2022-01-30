@@ -1,12 +1,12 @@
 <a name=top><br>
 <p align=center>
-<img src="etc/img/duo.png" width=350><br><!-- https://simpleicons.org/  https://studio.tailorbrands.com -->
 <a href="asdas">asdas</a> :: 
 <a href="asdas">a sdas asd</a> :: 
 <a href="asdas">oanadoasd</a> :: 
 <a href="asdas">qwndssdo</a> :: 
 <a href="asdas">qwndssdo</a> :: 
 <a href="asdas">qwndssdo</a>  <br>
+<img src="etc/img/duo.png" width=350><br><!-- https://simpleicons.org/  https://studio.tailorbrands.com -->
 <a href="https://zenodo.org/badge/latestdoi/452530453"><img src="https://zenodo.org/badge/452530453.svg"></a>
 <img src="https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue">
 <img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange">
