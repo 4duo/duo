@@ -18,7 +18,7 @@ OPTIONS:
   -Debug   on error, dump stack and halt = false
   -enough  use (#t)^enough               =  .5
   -far     how far to go                 =  .9
-  -file    read data from file           =  data/auto93.csv
+  -file    read data from file           =  data/auto93.csv 
   -help    show help                     =  false
   -p       distance coefficient          =   2
   -seed    random number seed            =  10019
