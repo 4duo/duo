@@ -1,12 +1,11 @@
-<img src="etc/img/duo.png" align=right width=150><!-- https://simpleicons.org/ -->
-    
+<img src="etc/img/duo.png" width=350><!-- https://simpleicons.org/ -->     
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
-  ![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue)
+  ![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue)   
   [![](https://img.shields.io/badge/license-MIT-informational?style=flat&logo=openaccess&logoColor=white&color=yellow)](/LICENSE.md)
-  ![](https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange)
+  ![](https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange)   
   ![](https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet)
    [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)  
-<img width=175  src="/etc/img/readthedocs.png">
+<img width=150  src="/etc/img/readthedocs.png">
 
 # For software engineering to knowledge engineering
 
