@@ -1,7 +1,7 @@
 <img src="etc/img/lua.png" align=right width=150>
     
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
-  ![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=lua&logoColor=white&color=blue)
+  ![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue)
   [![](https://img.shields.io/badge/license-MIT-informational?style=flat&logo=lua&logoColor=white&color=yellow)](/LICENSE.md)
   ![](https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange)
   ![](https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=lua&logoColor=white&color=blueviolet)
