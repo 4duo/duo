@@ -3,10 +3,10 @@
 <img src="etc/img/duo.png" width=350><br><!-- https://simpleicons.org/  https://studio.tailorbrands.com -->
 <img src="https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue">
 <a href="https://zenodo.org/badge/latestdoi/452530453"><img src="https://zenodo.org/badge/452530453.svg"></a><br>
-<a href="https://github.com/duo101/duo/actions"><img src="https://github.com/duo101/duo/workflows/tests/badge.svg"></a>
 <a href="/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-informational?style=flat&logo=openaccess&logoColor=white&color=yellow"></a>
 <img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange">
-<img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet"><br>
+<img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet">
+<a href="https://github.com/duo101/duo/actions"><img src="https://github.com/duo101/duo/workflows/tests/badge.svg"></a><br>
 <a href="asdas">asdas</a> :: 
 <a href="asdas">a sdas asd</a> :: 
 <a href="asdas">oanadoasd</a> :: 
