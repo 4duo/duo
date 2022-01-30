@@ -101,7 +101,7 @@ function fun.map(t,f,    u)
   u={}; for k,v in pairs(t) do fun.push(u, (f or same)(v)) end; return u end
 
 function fun.mapp(t,f,    u)
-  u={}; for k,v in pairs(t) do fun.push(u, (f or same)(k,v)) end; return u end
+  u={}; for k,v in pairs(t) do fun.push(u, (f or same)(k,v)) end; return u end   
 
 function fun.new(k,t) 
   k.__index=k; k.__tostring=fun.o; return setmetatable(t,k) end
