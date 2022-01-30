@@ -7,10 +7,10 @@
    ![](https://img.shields.io/static/v1?label=purpose&message=se,ai&color=blueviolet)
 
 
-![](https://img.shields.io/badge/platform-osx,linux?style=flat&logo=lua&logoColor=white&color=2bbc8a)
-  [![](https://img.shields.io/badge/license-MIT?style=flat&logo=lua&logoColor=white&color=2bbc8a)](/LICENSE.md)
-  ![](https://img.shields.io/badge/language-lua?style=flat&logo=lua&logoColor=white&color=2bbc8a)
-  ![](https://img.shields.io/badge/purpose-se,ai?style=flat&logo=lua&logoColor=white&color=2bbc8a)   
+![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)
+  [![](https://img.shields.io/badge/license-MIT-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)](/LICENSE.md)
+  ![](https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)
+  ![](https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)   
    [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)
 <img width=175  src="/etc/img/readthedocs.png">
 
