@@ -18,6 +18,6 @@ jobs:
           make linux test 
       - name: Run tests  
         run: |
-          cd ${{ .github.workspace }}/src; pwd; ls ..; \
+          cd ${{ github.workspace }}/src; pwd; ls ..; \
           ../lua-5.4.4/src/lua duo.lua -t . 
       - run: echo "🍏 This job's status is ${{ job.status }}."
