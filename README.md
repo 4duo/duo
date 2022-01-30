@@ -14,7 +14,7 @@
 <a href="asdas">oanadoasd</a> :: 
 <a href="asdas">qwndssdo</a> :: 
 <a href="asdas">qwndssdo</a> :: 
-<a href="asdas">qwndssdo</a>  </p>
+<a href="asdas">qwndssdo</a>  </p><hr>
 
 
 # For software engineering to knowledge engineering
