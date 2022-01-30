@@ -18,6 +18,7 @@ jobs:
           make linux test 
       - name: Run tests  
         run: |
+          tree; \
           cd ${{ github.workspace }}; \
           lua-5.4.4/src/lua duo.lua -t . 
       - run: echo "🍏 This job's status is ${{ job.status }}."
