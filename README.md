@@ -1,4 +1,4 @@
-<img src="etc/img/lua.png" align=right width=150><!-- https://simpleicons.org/ -->
+<img src="etc/img/duo.png" align=right width=150><!-- https://simpleicons.org/ -->
     
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
   ![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue)
