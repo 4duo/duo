@@ -22,6 +22,7 @@ OPTIONS:
   -file    read data from file           =  ../etc/data/auto93.csv 
   -help    show help                     =  false
   -p       distance coefficient          =   2
+  -rnd     default round                 =  %5.2f
   -seed    random number seed            =  10019
   -task    start up actions              =  donothing]]
 
@@ -138,16 +139,8 @@ function EGS.clone(i,inits,    j)
   for _,row in pairs(inits or {}) do j = j:add(row) end 
   return j end
 
-function EGS.cluster(i,top,lvl,         tmp1,tmp2,left,right)
-  top = top or i
-  lvl = lvl or 0
-  print(fmt("%s%s", string.rep(".",lvl),#i._rows))
-  if #i._rows >= 2*(#top._rows)^the.enough then
-    tmp1, tmp2 = top:half(i._rows)
-    if #tmp1._rows < #i._rows then left  = tmp1:cluster(top,lvl+1) end
-    if #tmp2._rows < #i._rows then right = tmp2:cluster(top,lvl+1) end 
-  end
-  return {here=i, left=left, right=right} end
+function EGS.cols(i,cols)
+  return map(cols or i.y, function(col) return col:mid() end) end
 
 function EGS.dist(i,r1,r2)
   local d,n,inc = 0, (#i.x)+1E-31
@@ -162,7 +155,6 @@ function EGS.far(i,r1,rows,        act,tmp)
   return table.unpack(tmp[#tmp*the.far//1] ) end
     
 function EGS.half(i,rows)
-  print(11)
   local some,left,right,c,cosine,lefts,rights
   rows    = rows or i._rows
   some    = #rows > the.ample and F.many(rows, the.ample) or rows
@@ -175,14 +167,41 @@ function EGS.half(i,rows)
     (n <= (#rows)/2 and lefts or rights):add( pair[2] ) end
   return lefts,rights,left,right,c end                              
 
+local rnd,show
+function EGS.cluster(i, top,lvl)
+  local c,lefts0, rights0, lefts, rights, left, right=0
+  top, lvl = top or i, lvl or ""
+  if #i._rows >=  2*(#top._rows)^the.enough then
+    lefts0, rights0, left, right, c = top:half(i._rows) 
+    lefts  = lefts0:cluster( top,lvl.."|.. ")
+    rights = rights0:cluster(top,lvl.."|.. ") 
+  end
+  return {here=i, lefts=lefts, rights=rights, left=left, right=right, c=c} end
+
+function rnd(x) 
+  return fmt(type(x)=="number" and x~=x//1 and the.rnd or"%s",x) end
+
+function show(t,lvl)
+  lvl = lvl or ""
+  if t then
+    --if t.lefts 
+    print(fmt("%s%s",lvl,#t.here._rows))
+    --else print(fmt("%s%s\t%s",lvl,#t.here._rows, #t.here:cols())) end
+    show(t.lefts, lvl.."|.. ")
+    show(t.rights,lvl.."|.. ") end end
 
 -- -----------------------------------------------------------------------------
 local no,go={},{}
 local asserts=F.asserts
 
+function go.cluster()  show( EGS:new(the.file):cluster() ) end 
+
 function go.half(  a,b)  
-  a,b=EGS:new(the.file):half() 
-  
+  lefts,rights,left,right,c=EGS:new(the.file):half() 
+  print("rows",#lefts._rows, #rights._rows)
+  oo{left=left}
+  oo{right=right}
+  oo{c=c}
   end
 
 function go.any(   t,x,n)

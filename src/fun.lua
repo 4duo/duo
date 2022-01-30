@@ -15,15 +15,16 @@ function lib.main(settings,tasks,      saved)
   for _,task in pairs(lib.slots(tasks)) do
     if task:match(settings.task) then 
       math.randomseed(settings.seed)
+      print("TASK: "..task)
       local ok,msg=pcall(tasks[task])
       if not ok then  
-        print("FAIL :"..msg) failures=failures+1 
+        print(":FAIL "..msg) failures=failures+1 
         if settings.Debug then assert(false,msg) end end
       for k,v in pairs(saved) do settings[k]=v end end end
   lib.rogues()
-  os.exit(failures) end 
+  os.exit(failures) end   
 
-function lib.options(help,   t)
+function lib.options(help,   t)  
   t={}
   help:gsub("\n  [-]([^%s]+)[^\n]*%s([^%s]+)",function(slot,x) 
     for n,flag in ipairs(arg) do             
@@ -36,8 +37,8 @@ function lib.options(help,   t)
 -- testing stuff ---------------------------------------------------------------
 function lib.asserts(test,msg) 
   if   test 
-  then print("PASS : "..(msg or "")) 
-  else print("FAIL : "..(msg or "")); failures=failures + 1; end end
+  then print(":PASS "..(msg or "")) 
+  else print(":FAIL "..(msg or "")); failures=failures + 1; end end
 
 function lib.rogues()
   for k,v in pairs(_ENV) do if not b4[k] then print("?",k,type(v)) end end end
