@@ -1,6 +1,6 @@
 <a name=top><br>
 <p align=center>
-<a href="asdas">home</a> • 
+<a href="/README.md#top">home</a> • 
 <a href="asdas">about</a> • 
 <a href="asdas">egs</a> • 
 <a href="asdas">issues</a> • 
