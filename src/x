@@ -1,0 +1,1 @@
+curl -i https://git.io -F "url=https://github.com/duo101/duo/blob/main/README.md#top" -F "code=duo101"
