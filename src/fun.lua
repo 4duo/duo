@@ -114,7 +114,6 @@ function fun.rows(file,      x)
   return function() 
     x=io.read(); if x then return fun.things(x) else io.close(file) end end end
 
-
  --- ## String Coercion 
 function fun.thing(x)   
   x = x:match"^%s*(.-)%s*$" 
