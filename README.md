@@ -1,9 +1,9 @@
 <a name=top><br>
 <p align=center>
-<a href="/README.md#top">home</a> • 
-<a href="asdas">about</a> • 
-<a href="asdas">egs</a> • 
-<a href="asdas">issues</a> • 
+<a href="/README.md#top">home</a> § 
+<a href="asdas">about</a> § 
+<a href="asdas">egs</a> § 
+<a href="asdas">issues</a> § 
 <a href="asdas">chat</a></p>
 <p align=center>
 <img src="etc/img/duo.png" width=350><br><!-- https://simpleicons.org/  https://studio.tailorbrands.com -->
