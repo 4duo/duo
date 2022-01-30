@@ -27,9 +27,11 @@ OPTIONS:
   -task    start up actions              =  donothing]]
 
 local EGS, NUM, RANGE, SYM = {},{},{},{}
-local map,fmt,new,sort,push,o,oo = F.map,F.fmt,F.new,F.sort,F.push,F.oo,F.oo
-local any = F.any
--- ----------------------------------------------------------------------------
+local any,    asserts,  brange,  firsts,  fmt,  many,  map = 
+      F.any,F.asserts,F.brange,F.firsts,F.fmt.F.many,F.map
+local   new,  o,   oo,  push,  rows,  seconds,  sort =  
+      F.new,F.oo,F.oo,F.push,F.rows,F.seconds,F.sort
+--- ## RANGE 
 function RANGE.new(k,col,lo,hi,b,B,r,R)
   return new(k,{col=col,lo=lo,hi=hi or lo,b=b,B=B,r=r,R=R}) end
 
@@ -51,7 +53,7 @@ function RANGE.val(i,   z,B,R)
 
 function RANGE.selects(i,row,    x) 
   x=row.has[col.at]; return x=="?" or i.lo<=x and x<i.hi end
--- ----------------------------------------------------------------------------
+--- ## NUM
 function NUM.new(k,at,s) 
   return new(k,{at=at,txt=s,w=s:find"-" and -1 or 1,_has={},
                     ok=false, lo=math.huge, hi=-math.huge}) end
@@ -108,7 +110,7 @@ function NUM.norm(i,x)
 --   then return i:ranges(j, best.lo, best.hi) 
 --   else return RANGE:new(i,  lo,hi,m2-m0,i.n,n2-n0,j.n) end end
 --   
--- ----------------------------------------------------------------------------
+--- ## SYM
 function SYM.new(k,at,s) return new(k,{at=at,txt=s,_has={},mode=nil,most=0}) end
 function SYM.add(i,x) 
   if x~="?" then 
@@ -123,10 +125,10 @@ function SYM.mid(i)      return i.mode end
 function SYM.ranges(i,j)
   return lib.mapp(i._has,       -- col lohib B   r                R
       function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end 
--- -----------------------------------------------------------------------------
+--- ## EGS
 function EGS.new(k,file,   i) 
   i= new(k,{_rows={}, cols=nil, x={},  y={}})
-  if file then for row in F.rows(file) do i:add(row) end end
+  if file then for row in rows(file) do i:add(row) end end
   return i end
 
 function EGS.add(i,t)
@@ -158,19 +160,19 @@ function EGS.dist(i,r1,r2)
 
 function EGS.far(i,r1,rows,        act,tmp)
   act = function(r2) return {r2, i:dist(r1,r2)} end
-  tmp = sort(map(rows,act), F.seconds)
+  tmp = sort(map(rows,act), seconds)
   return table.unpack(tmp[#tmp*the.far//1] ) end
     
 function EGS.half(i,rows)
   local some,left,right,c,cosine,lefts,rights
   rows    = rows or i._rows
-  some    = #rows > the.ample and F.many(rows, the.ample) or rows
+  some    = #rows > the.ample and many(rows, the.ample) or rows
   left    = i:far(any(rows), some)
   right,c = i:far(left,      some)
   function cosine(r,     a,b)
     a, b = i:dist(r,left), i:dist(r,right); return {(a^2+c^2-b^2)/(2*c),r} end
   lefts,rights = i:clone(), i:clone() 
-  for n,pair in pairs(sort(map(rows,cosine), F.firsts)) do         
+  for n,pair in pairs(sort(map(rows,cosine), firsts)) do         
     (n <= (#rows)/2 and lefts or rights):add( pair[2] ) end
   return lefts,rights,left,right,c end                              
 
@@ -197,9 +199,8 @@ function show(t,lvl)
     show(t.lefts, lvl.."|.. ")
     show(t.rights,lvl.."|.. ") end end
 
--- -----------------------------------------------------------------------------
+--- ## Tests and Demo
 local no,go={},{}
-local asserts=F.asserts
 
 function go.cluster()  show(EGS:new(the.file):cluster())  end 
 
@@ -213,7 +214,7 @@ function go.half(  a,b)
 
 function go.any(   t,x,n)
   t={}; for i=1,10 do t[1+#t] = i end
-  n=0; for i=1,5000 do x=F.any(t); n= 1 <= x and x <=10 and n+1 or 0 end
+  n=0; for i=1,5000 do x=any(t); n= 1 <= x and x <=10 and n+1 or 0 end
   asserts(n==5000,"any")  end
 
 function go.bsearch(   t,x,a,b)  
@@ -221,8 +222,8 @@ function go.bsearch(   t,x,a,b)
   for j =1,10^6 do push(t,100*math.random()//1) end
   table.sort(t); 
   for j =1,1000 do
-     x=F.any(t)
-     a,b = F.brange(t,x)
+     x=any(t)
+     a,b = brange(t,x)
      assert(t[a-1] ~= x) 
      assert(t[b+1] ~= x)  ---- 
      for k=a,b do assert(t[k] == x) end end end
@@ -230,7 +231,7 @@ function go.bsearch(   t,x,a,b)
 function no.fail()       asserts(fail,"checking crashes"); print(no.thi.ng) end
 function go.oo(  u)      oo{10,20,30} end
 function go.rows( t)       
-  for row in F.rows(the.file) do t=row  end 
+  for row in rows(the.file) do t=row  end 
   asserts(type(t[1])=="number","is number")
   asserts(t[1]==4, "is four")
   asserts(#t==8,"is eight") end                           
