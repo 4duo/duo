@@ -35,8 +35,8 @@ alias grep='grep --color=auto'
 alias h="history"
 alias hello="git pull"
 alias ls="ls -G"
-alias tmux="tmux -f $here/etc/tmux-conf"
-alias vi="vim -u $here/etc/vimrc "
+alias tmux="tmux -f $here/etc/dottmux"
+alias vi="vim -u $here/etc/dotvimrc "
 alias vims="vim +PluginInstall +qall"         
 
 export BASH_SILENCE_DEPRECATION_WARNING=1
