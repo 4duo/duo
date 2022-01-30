@@ -1,17 +1,11 @@
 <img src="etc/img/lua.png" align=right width=150>
     
 [![](https://github.com/duo101/duo/workflows/tests/badge.svg)](https://github.com/duo101/duo/actions)
-   ![](https://img.shields.io/static/v1?label=platform&message=osx,linux&color=blue)
-   [![](https://img.shields.io/static/v1?label=license&message=MIT&color=yellow)](LICENSE.md)
-   ![](https://img.shields.io/static/v1?label=language&message=lua&color=orange)
-   ![](https://img.shields.io/static/v1?label=purpose&message=se,ai&color=blueviolet)
-
-
-![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)
-  [![](https://img.shields.io/badge/license-MIT-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)](/LICENSE.md)
-  ![](https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)
-  ![](https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=lua&logoColor=white&color=2bbc8a)   
-   [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)
+  ![](https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=lua&logoColor=white&color=blue)
+  [![](https://img.shields.io/badge/license-MIT-informational?style=flat&logo=lua&logoColor=white&color=yellow)](/LICENSE.md)
+  ![](https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange)
+  ![](https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=lua&logoColor=white&color=blueviolet)
+   [![DOI](https://zenodo.org/badge/452530453.svg)](https://zenodo.org/badge/latestdoi/452530453)  
 <img width=175  src="/etc/img/readthedocs.png">
 
 # For software engineering to knowledge engineering
