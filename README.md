@@ -1,7 +1,12 @@
 <a name=top><br>
 <!-- tricks from https://simpleicons.org/  https://studio.tailorbrands.com -->
 <p align=center>
-<a href="/README.md#top">home</a> • <a href="asdas">about</a> • <a href="asdas">egs</a> • <a href="asdas">issues</a> • <a href="asdas">chat</a> • <a href="/LICENSE.md#top">&copy;&nbsp;2022</a></p>
+<a href="/README.md#top">home</a> • 
+<a href="asdas">about</a> • 
+<a href="asdas">egs</a> • 
+<a href="asdas">issues</a> • 
+<a href="asdas">chat</a> • 
+<a href="/LICENSE.md#top">&copy;&nbsp;2022</a></p>
 <p align=center>
 <a href="/README.md#top"><img src="etc/img/duo.png" width=350></a><br>
 <img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet">
