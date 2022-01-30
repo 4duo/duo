@@ -7,8 +7,6 @@
 <a href="/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-informational?style=flat&logo=openaccess&logoColor=white&color=yellow"></a>
 <img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange">
 <img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet"><br>
-</p>
-<p align=center>
 <a href="asdas">asdas</a> :: 
 <a href="asdas">a sdas asd</a> :: 
 <a href="asdas">oanadoasd</a> :: 
