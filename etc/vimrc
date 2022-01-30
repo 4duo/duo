@@ -2,6 +2,9 @@ set list
 set listchars=tab:>-
 set backupdir-=.
 set backupdir^=~/tmp,/tmp
+set backupcopy=yes
+set nobackup
+set nowritebackup
 set nocompatible   
 "filetype plugin indent on
 set modelines=3

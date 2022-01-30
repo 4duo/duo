@@ -5,17 +5,17 @@
 -- | (_| | |_| | (_) |
 --  \__,_|\__,_|\___/  .lua
 --    
-local F=require"fun"
+local F=require"fun"   
 local the=F.options[[
 
 ./duo.lua [OPTIONS]
-(c)2022 Tim Menzies, MIT license
+(c)2022 Tim Menzies, MIT license   
 
 Data miners using/used by optimizers.
-Understand N items after log(N) probes, or less.
+Understand N items after log(N) probes, or less.  
 
 OPTIONS:
-  -ample   when enough is enough         =  512
+  -ample   when enough is enough         =  512  
   -Debug   on error, dump stack and halt = false
   -enough  use (#t)^enough               =  .5
   -far     how far to go                 =  .9
@@ -26,11 +26,11 @@ OPTIONS:
   -seed    random number seed            =  10019
   -task    start up actions              =  donothing]]
 
-local EGS, NUM, RANGE, SYM = {},{},{},{}
-local any,    asserts,  brange,  firsts,  fmt,  many,  map = 
-      F.any,F.asserts,F.brange,F.firsts,F.fmt.F.many,F.map
-local   new,  o,   oo,  push,  rows,  seconds,  sort =  
-      F.new,F.oo,F.oo,F.push,F.rows,F.seconds,F.sort
+local EGS, NUM, RANGE, SYM = {}, {}, {}, {}
+local any,    asserts,  brange,  firsts,  fmt,  many,  map =  
+      F.any,F.asserts,F.brange,F.firsts,F.fmt,F.many,F.map
+local   new,  o,  oo,  push,  rows,  seconds,  sort =  
+      F.new,F.o,F.oo,F.push,F.rows,F.seconds,F.sort
 --- ## RANGE 
 function RANGE.new(k,col,lo,hi,b,B,r,R)
   return new(k,{col=col,lo=lo,hi=hi or lo,b=b,B=B,r=r,R=R}) end
@@ -202,14 +202,14 @@ function show(t,lvl)
 --- ## Tests and Demo
 local no,go={},{}
 
-function go.cluster()  show(EGS:new(the.file):cluster())  end 
+function go.cluster(  a)  
+  a=EGS:new(the.file):cluster()  
+  asserts(49==#a.lefts.lefts.lefts.here._rows) end
 
 function go.half(  a,b)  
-  local lefts,rights,left,right,c=EGS:new(the.file):half() 
-  print("rows",#lefts._rows, #rights._rows)
-  oo{left=left}
-  oo{right=right}
-  oo{c=c}
+  local top =EGS:new(the.file)
+  local lefts,rights,left,right,c=top:half() 
+  asserts(top:dist(left,right) > .75)
   end
 
 function go.any(   t,x,n)
@@ -229,7 +229,7 @@ function go.bsearch(   t,x,a,b)
      for k=a,b do assert(t[k] == x) end end end
 
 function no.fail()       asserts(fail,"checking crashes"); print(no.thi.ng) end
-function go.oo(  u)      oo{10,20,30} end
+function go.oo(  u)      asserts("{10 20 30}" == fmt("%s",o{10,20,30}),"table") end
 function go.rows( t)       
   for row in rows(the.file) do t=row  end 
   asserts(type(t[1])=="number","is number")
@@ -237,8 +237,7 @@ function go.rows( t)
   asserts(#t==8,"is eight") end                           
 
 function go.egs(   i,t)    
-  i=EGS:new(the.file); map(i.y,oo)
-  print(10)
+  i=EGS:new(the.file)
   asserts(i.y[1].lo==1613,"lo") 
   t=i.y[1]:has(); asserts(1613==t[1],"lo2") asserts(5140== t[#t],"hi");
   asserts(i.y[1].ok,"ok") end    

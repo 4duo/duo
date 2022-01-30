@@ -1,6 +1,5 @@
 clear
-date +'%M : %S' | figlet
-echo ""
+date +'%M : %S' | figlet -f small
 lua duo.lua -task . | gawk '
 BEGIN   { fails=0 }
 /FAIL/  { ++fails }
