@@ -7,7 +7,15 @@
 <a href="/LICENSE.md"><img src="https://img.shields.io/badge/license-MIT-informational?style=flat&logo=openaccess&logoColor=white&color=yellow"></a>
 <img src="https://img.shields.io/badge/language-lua-informational?style=flat&logo=lua&logoColor=white&color=orange">
 <img src="https://img.shields.io/badge/purpose-se,ai-informational?style=flat&logo=hyper&logoColor=white&color=blueviolet"><br>
-<img width=150  src="/etc/img/readthedocs.png"></p>
+</p>
+<p align=center>
+<a href="asdas">asdas</a> :moyai: 
+<a href="asdas">a sdas asd</a> :moyai: 
+<a href="asdas">oanadoasd</a> :moyai: 
+<a href="asdas">qwndssdo</a> :moyai: 
+<a href="asdas">qwndssdo</a> :moyai: 
+<a href="asdas">qwndssdo</a>  </p>
+
 
 # For software engineering to knowledge engineering
 

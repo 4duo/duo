@@ -39,12 +39,36 @@ alias tmux="tmux -f $here/etc/tmux-conf"
 alias vi="vim -u $here/etc/vimrc "
 alias vims="vim +PluginInstall +qall"         
 
-
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH="$PWD:/opt/homebrew/bin:$PATH"
 export EDITOR=$(which pico)
 
 here() { cd $1; basename `pwd`; }
+#!/usr/bin/env bash
+
+mds() {
+  if [ -d "$here" ]; then
+    f=$(find $here  -type f -name '*.md')
+    for g in $f; do
+      if [ "$here/README.md" -nt "$g" ]; then
+        h=$(mktemp)
+        echo "# updating $g ..."
+        mds1 $g > $h
+        mv $h $g
+      fi
+    done 
+  fi
+}
+
+mds1() {
+  cat $here/README.md | gawk '
+        BEGIN { FS="\n"; RS="" }
+              { print; exit 0  }'
+  cat $1 | gawk '
+        BEGIN { FS="\n"; RS="" }
+        NR==1 && $1~/name=top/ { next }
+              { print ""; print }'
+}
 
 PROMPT_COMMAND='echo -ne "🎌 $(git branch 2>/dev/null | grep '^*' | colrm 1 2):";PS1="$(here ..)/$(here .):\!\e[m ▶ "'
 
