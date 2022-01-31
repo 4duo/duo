@@ -8,7 +8,7 @@
 local F=require"fun"   
 local the=F.options[[
 
-./duo.lua [OPTIONS]
+lua duo.lua [OPTIONS]
 (c)2022 Tim Menzies, MIT license   
 
 Data miners using/used by optimizers.
@@ -269,4 +269,5 @@ function go.cluster(  a)
   asserts(49==#a.lefts.lefts.lefts.here._rows) 
   end
 
-the(go)
+if arg[0] == "duo.lua" then the(go) end -- if called as main function
+return {the=the, EGS=EGS, NUM=NUM, RANGE=RANGE, SYM=SYM} 
