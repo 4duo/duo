@@ -64,11 +64,6 @@ function fun.bright(t,x)
     if x<t[m] then hi=m-1 elseif x>t[m] then lo=m+1 else y=m; lo=m+1 end end 
   return y or m end
 
-function fun.support(t,x,y, x0,x1,y0,y1)
-  if x < t[1]  then x0,x1 = 1,1  else x0,x1 = fun.brange(t,x) end
-  if y > t[#t] then y0,y1= #t,#t else y0,y1 = fun.brange(t,y) end
-  return (1 + y1-x0) end
-
 function fun.copy(t,   u)
   if type(t)~="table" then return t end
   u={}; for k,v in pairs(t) do u[k]=copy(v) end

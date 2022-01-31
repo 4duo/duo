@@ -86,27 +86,27 @@ function NUM.mid(i,   a) a=i:has(); return a[#a//2] end
 function NUM.norm(i,x)
   return i.hi - i.lo<1E-9 and 0 or (x - i.lo)/(i.hi - i.lo) end
 
+function NUM.with(i,lo,hi,   t,left,right)
+  t=i:has()
+  if hi<t[1] or lo>t[#t] then return 0 end
+  left= lo < t[1] and 1 or F.bleft(t,lo)
+  right= hi > t[#t] and #t or F.bright(t,hi)
+  return  right - left end
+
 --- compare to old above
-local _merge,_support
+local _merge
 function NUM.ranges(i,j)
   local out,lo,hi,gap = {}
   lo  = math.min(i.lo,j.lo)
   hi  = math.max(i.hi,j.hi)
   gap = (hi - lo) / the.bins
   for x = lo,hi,gap do
-    push(out, RANGE:new(i, x, x+gap, 
-                        _support(i:has(),x,x+gap), #i:has(), 
-                        _support(j:has(),x,x+gap), #j:has())) end
+    push(out,--col,lo hi     b               B        r               R
+      RANGE:new(i, x, x+gap,i:with(x,x+gap),#i:has(),j:with(x,x+gap),#j:has())) end
   out = _merge(out)
   out[1].lo = -math.huge
   out[#out].hi =  math.huge
   return out end 
-
-function _support(t,lo,hi,     left, right) 
-  if hi<t[1] or lo>t[#t] then return 0 end
-  left= lo < t[1] and 1 or F.bleft(t,lo)
-  right= hi > t[#t] and #t or F.bright(t,hi)
-  return  right - left end
 
 function _merge(b4)
   local j,tmp,now,after,maybe = 0, {} 
@@ -273,10 +273,11 @@ function go.half(  a,b,col2,tmp)
      print""
      tmp= col1:ranges(col2)
      if #tmp>1 then 
-       for n,r in pairs(tmp) do print(0,col1.txt, n,r.lo,r.hi,r.b,r.r,r:val()) end end
+       for n,r in pairs(tmp) do print(0,col1.txt, n,rnd(r.lo),rnd(r.hi),r.b,r.r,rnd(r:val())) end end
+     print""
      tmp= col2:ranges(col1)
      if #tmp>1 then
-       for n,r in pairs(tmp) do print(1,col1.txt, n,r.lo,r.hi,r.b,r.r,r:val()) end end
+       for n,r in pairs(tmp) do print(1,col1.txt, n,rnd(r.lo),rnd(r.hi),r.b,r.r,rnd(r:val())) end end
   end 
 end
 
