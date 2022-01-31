@@ -96,6 +96,7 @@ function NUM.ranges(i,j)
     push(out, RANGE:new(i, x, x+gap, 
                         support(i:has(),x,x+gap), #i:has(), 
                         support(j:has(),x,x+gap), #j:has())) end
+  map(out,oo)
   out = _merge(out)
   out[1].lo = -math.huge
   out[#out].hi =  math.huge
