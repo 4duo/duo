@@ -30,19 +30,20 @@ OPTIONS:
 local EGS, NUM, RANGE, SYM = {}, {}, {}, {}
 local   any,  asserts,  brange,  firsts,  fmt,  many,  map,  mapp =        
       F.any,F.asserts,F.brange,F.firsts,F.fmt,F.many,F.map,F.mapp
-local   new,  o,  oo,  push,  rows,  seconds,  sort,  support =  
-      F.new,F.o,F.oo,F.push,F.rows,F.seconds,F.sort,F.support
+local   new,  o,  oo,  push,  rows,  seconds,  sort =  
+      F.new,F.o,F.oo,F.push,F.rows,F.seconds,F.sort
 --- ## RANGE 
 function RANGE.new(k,col,lo,hi,b,B,r,R)
   return new(k,{col=col,lo=lo,hi=hi or lo,b=b,B=B,r=r,R=R}) end
 
 function RANGE.__lt(i,j) return i:val() < j:val() end
 
-function RANGE.merge(i,j,k,   lo,hi)  
+function RANGE.merge(i,j,k,   lo,hi,z,B,R)  
   lo = math.min(i.lo, j.lo)   
   hi = math.max(i.hi, j.hi)
+  z=1E-31; B,R = i.B+z, i.R+z
   k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R)   
-  if k.b/k.B < .01 or k.r/k.R < .01          then return k end
+  if k.b/B < .01 or k.r/R < .01          then return k end
   if k:val() > i:val() and k:val() > j:val() then return k end end
 
 function RANGE.show(i)    
@@ -86,23 +87,26 @@ function NUM.norm(i,x)
   return i.hi - i.lo<1E-9 and 0 or (x - i.lo)/(i.hi - i.lo) end
 
 --- compare to old above
-local _merge
+local _merge,_support
 function NUM.ranges(i,j)
   local out,lo,hi,gap = {}
   lo  = math.min(i.lo,j.lo)
   hi  = math.max(i.hi,j.hi)
   gap = (hi - lo) / the.bins
   for x = lo,hi,gap do
-    print(support(i:has(),x,x+gap))
-    print(support(j:has(),x,x+gap))
     push(out, RANGE:new(i, x, x+gap, 
-                        support(i:has(),x,x+gap), #i:has(), 
-                        support(j:has(),x,x+gap), #j:has())) end
-  map(out,function(r)  oo{r=r.r,b=r.b} end)
+                        _support(i:has(),x,x+gap), #i:has(), 
+                        _support(j:has(),x,x+gap), #j:has())) end
   out = _merge(out)
   out[1].lo = -math.huge
   out[#out].hi =  math.huge
   return out end 
+
+function _support(t,lo,hi,     left, right) 
+  if hi<t[1] or lo>t[#t] then return 0 end
+  left= lo < t[1] and 1 or F.bleft(t,lo)
+  right= hi > t[#t] and #t or F.bright(t,hi)
+  return  right - left end
 
 function _merge(b4)
   local j,tmp,now,after,maybe = 0, {} 
@@ -214,17 +218,29 @@ function go.any(   t,x,n)
   n=0; for i=1,5000 do x=any(t); n= 1 <= x and x <=10 and n+1 or 0 end
   asserts(n==5000,"any")  end
 
-function go.bsearch(   t,x,a,b,bad)  
+function go.bleft(   t,x,a,b,bad)  
   t,bad = {},0
-  for j =1,10^6 do push(t,100*math.random()//1) end
+  for j =1,30 do push(t,100*math.random()//1) end
   table.sort(t); 
-  for j =1,1000 do
-     x=any(t)
-     a,b = brange(t,x)
-     if t[a-1] == x then bad=bad+1 end 
-     if t[b+1] == x then bad=bad+1 end  ---- 
-     for k=a,b do if t[k] ~= x then bad=bad+1 end end end 
-  asserts(bad==0, "bsearching") end
+  for k,v in pairs(t) do print(k,v) end
+  for j=1,5 do x=any(t); print(x, F.bleft(t,x)) end
+  for j=1,5 do x=100*math.random()//1; print(x, F.bleft(t,x)) end
+  x= 200; print(x, F.bleft(t,x)) 
+  x= -1; print(x, F.bleft(t,x)) 
+end
+
+function go.bspan(   t,x,a,b,bad)  
+  t,bad = {},0
+  for j =1,50 do push(t,10*math.random()//1) end
+  table.sort(t); 
+  for k,v in pairs(t) do print(k,v) end
+  print""
+  for j =1,10 do
+     x=any(t); a,b = F.bleft(t,x),F.bright(t,x); print("=",x,a,b) end
+  print""
+  for j =1,10 do
+     x=math.random(100)/10 a,b = F.bleft(t,x),F.bright(t,x); print("ish",x,a,b)  end
+  end
 
 function no.fail()       asserts(fail,"checking crashes"); print(no.thi.ng) end
 function go.oo(  u)      asserts("{10 20 30}" == fmt("%s",o{10,20,30}),"table") end

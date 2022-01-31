@@ -50,18 +50,19 @@ function fun.any(t)       return t[math.random(#t)] end
 function fun.many(t,n, u) u={};for j=1,n do t[1+#t]=fun.any(t) end; return u end
 
 --- ## Lists
-function fun.bpos(t,x,lo,hi)
-  lo,hi = lo or 1, hi or #t
+function fun.bleft(t,x)
+  local lo,hi,m,y = 1, #t
   while lo <= hi do
-    local mid = (hi + lo) // 2
-    if     x < t[mid] then hi = mid - 1 
-    elseif x > t[mid] then lo = mid + 1
-    else   return mid end end end
+    m = (hi + lo) // 2
+    if x<t[m] then hi=m-1 elseif x>t[m] then lo=m+1 else y=m; hi=m-1 end end 
+  return y or m end
 
-function fun.bspan(t,x)
-  start = fun.bpos(t,x)
-  stop  = t[start+1] == t[start] and fun.bpos(t,x, start+1) or start
-  return start,stop end
+function fun.bright(t,x)
+  local lo,hi,m,y = 1, #t 
+  while lo <= hi do
+    m = (hi + lo) // 2
+    if x<t[m] then hi=m-1 elseif x>t[m] then lo=m+1 else y=m; lo=m+1 end end 
+  return y or m end
 
 function fun.support(t,x,y, x0,x1,y0,y1)
   if x < t[1]  then x0,x1 = 1,1  else x0,x1 = fun.brange(t,x) end
