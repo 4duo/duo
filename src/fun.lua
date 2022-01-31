@@ -51,11 +51,12 @@ function fun.many(t,n, u) u={};for j=1,n do t[1+#t]=fun.any(t) end; return u end
 
 --- ## Lists
 function fun.brange(t,x)
-  local lo,hi,mid,start,stop = 1,#t
+  local lo,hi,start,stop,mid = 1,#t,1,#t
   while lo <= hi do
     mid = (lo + hi)//2
     if t[mid] == x then start,stop = mid,mid end
     if t[mid] >= x then hi=mid-1 else lo=mid+1 end end
+  fun.oo{x=x,lo=t[1],hi=t[#t],mid=mid,start=start,stop=stop}
   if t[start+1]==t[start] then
     lo,hi = stop, #t
     while lo <= hi do
@@ -63,7 +64,7 @@ function fun.brange(t,x)
       if t[mid] > x then hi=mid-1 else stop=mid; lo=mid+1 end end end
   return start,stop end
 
-function fun.support(t,x,y)
+function fun.support(t,x,y, x0,x1,y0,y1)
   if x < t[1]  then x0,x1 = 1,1  else x0,x1 = fun.brange(t,x) end
   if y > t[#t] then y0,y1= #t,#t else y0,y1 = fun.brange(t,y) end
   return (1 + y1-x0) end
