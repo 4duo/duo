@@ -28,8 +28,8 @@ OPTIONS:
   -task    start up actions              = donothing]]
 
 local EGS, NUM, RANGE, SYM = {}, {}, {}, {}
-local   any,  asserts,  brange,  firsts,  fmt,  many,  map =        
-      F.any,F.asserts,F.brange,F.firsts,F.fmt,F.many,F.map
+local   any,  asserts,  brange,  firsts,  fmt,  many,  map,  mapp =        
+      F.any,F.asserts,F.brange,F.firsts,F.fmt,F.many,F.map,F.mapp
 local   new,  o,  oo,  push,  rows,  seconds,  sort,  support =  
       F.new,F.o,F.oo,F.push,F.rows,F.seconds,F.sort,F.support
 --- ## RANGE 
@@ -40,9 +40,9 @@ function RANGE.__lt(i,j) return i:val() < j:val() end
 
 function RANGE.merge(i,j,k,   lo,hi)  
   lo = math.min(i.lo, j.lo)   
-  hi = math.max(i.hi, j.lhi)
+  hi = math.max(i.hi, j.hi)
   k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R)   
-  if k.b/k.B < .05 or k.r/k.R < .05          then return k end
+  if k.b/k.B < .01 or k.r/k.R < .01          then return k end
   if k:val() > i:val() and k:val() > j:val() then return k end end
 
 function RANGE.show(i)    
@@ -58,12 +58,13 @@ function RANGE.selects(i,row,    x)
   x=row.has[col.at]; return x=="?" or i.lo<=x and x<i.hi end
 --- ## NUM
 function NUM.new(k,at,s) 
-  return new(k,{at=at,txt=s,w=s:find"-" and -1 or 1,_has={},
-                    ok=false, lo=math.huge, hi=-math.huge}) end
+  return new(k,{n=0, at=at,txt=s,w=s:find"-" and -1 or 1,_has={},
+                ok=false, lo=math.huge, hi=-math.huge}) end
 
 function NUM.add(i,x) 
   if x ~= "?" then
     i.ok = false 
+    i.n = i.n + 1
     push(i._has, x)
     if x < i.lo then i.lo = x end
     if x > i.hi then i.hi = x end end 
@@ -93,8 +94,8 @@ function NUM.ranges(i,j)
   gap = (hi - lo) / the.bins
   for x = lo,hi,gap do
     push(out, RANGE:new(i, x, x+gap, 
-                        support(i:has(),x,x+gap), i.n, 
-                        support(j:has(),x,x+gap), j.n)) end
+                        support(i:has(),x,x+gap), #i:has(), 
+                        support(j:has(),x,x+gap), #j:has())) end
   out = _merge(out)
   out[1].lo = -math.huge
   out[#out].hi =  math.huge
@@ -109,13 +110,14 @@ function _merge(b4)
       maybe = now:merge(after)
       if maybe then now=maybe; j=j+1 end end
     push(tmp,now) end
-  return #tmp==#b4 and b4 or merge(tmp) end 
+  return #tmp==#b4 and b4 or _merge(tmp) end 
 
 --- ## SYM
-function SYM.new(k,at,s) return new(k,{at=at,txt=s,_has={},mode=nil,most=0}) end
+function SYM.new(k,at,s) return new(k,{n=0,at=at,txt=s,_has={},mode=nil,most=0}) end
 function SYM.add(i,x) 
   if x~="?" then 
-     i._has[x]=1+(i._has[x] or 0)
+     i.n = i.n + 1
+     i._has[x] = 1 + (i._has[x] or 0)
      if i._has[x] > i.most then i.most, i.mode = i._has[x],x end
   end
   return x end
@@ -123,9 +125,9 @@ function SYM.add(i,x)
 function SYM.dist(i,a,b) return  a=="?" and b=="?" and 1 or a==b and 0 or 1 end
 function SYM.has(i)      return i.has end
 function SYM.mid(i)      return i.mode end
-function SYM.ranges(i,j)
-  return lib.mapp(i._has,       -- col lohib B   r                R
-      function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end 
+function SYM.ranges(i,j,     out)
+  return mapp(i._has, 
+    function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end
 
 --- ## EGS
 function EGS.new(k,file,   i) 
@@ -243,15 +245,21 @@ function go.dist(  i, t,a,b,d)
      d= i:dist(a,b)
      assert(0<= d and d <= 1) end end           
 
-function go.half(  a,b,col2)  
+function go.half(  a,b,col2,tmp)  
   local top =EGS:new(the.file)
   local lefts,rights,left,right,c=top:half() 
   asserts(top:dist(left,right) > .75) 
   for n,col1 in pairs(lefts.x) do
      col2 = rights.x[n]
-     print("")
-     for n,r in pairs(col1:ranges(col2)) do
-       print(col.txt, n,r) end end end
+     print""
+     tmp= col1:ranges(col2)
+     if #tmp>1 then 
+       for n,r in pairs(tmp) do print(0,col1.txt, n,r.lo,r.hi,r.b,r.r,r:val()) end end
+     tmp= col2:ranges(col1)
+     if #tmp>1 then
+       for n,r in pairs(tmp) do print(1,col1.txt, n,r.lo,r.hi,r.b,r.r,r:val()) end end
+  end 
+end
 
 function go.cluster(  a)  
   a=EGS:new(the.file):cluster()  
