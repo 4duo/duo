@@ -50,18 +50,17 @@ function fun.any(t)       return t[math.random(#t)] end
 function fun.many(t,n, u) u={};for j=1,n do t[1+#t]=fun.any(t) end; return u end
 
 --- ## Lists
-function fun.brange(t,x)
-  local lo,hi,start,stop,mid = 1,#t,1,#t
+function fun.bpos(t,x,lo,hi)
+  lo,hi = lo or 1, hi or #t
   while lo <= hi do
-    mid = (lo + hi)//2
-    if t[mid] == x then start,stop = mid,mid end
-    if t[mid] >= x then hi=mid-1 else lo=mid+1 end end
-  --`;fun.oo{x=x,lo=t[1],hi=t[#t],mid=mid,start=start,stop=stop}
-  if t[start+1]==t[start] then
-    lo,hi = stop, #t
-    while lo <= hi do
-      mid = (lo + hi)//2 
-      if t[mid] > x then hi=mid-1 else stop=mid; lo=mid+1 end end end
+    local mid = (hi + lo) // 2
+    if     x < t[mid] then hi = mid - 1 
+    elseif x > t[mid] then lo = mid + 1
+    else   return mid end end end
+
+function fun.bspan(t,x)
+  start = fun.bpos(t,x)
+  stop  = t[start+1] == t[start] and fun.bpos(t,x, start+1) or start
   return start,stop end
 
 function fun.support(t,x,y, x0,x1,y0,y1)

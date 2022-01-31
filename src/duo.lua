@@ -93,10 +93,12 @@ function NUM.ranges(i,j)
   hi  = math.max(i.hi,j.hi)
   gap = (hi - lo) / the.bins
   for x = lo,hi,gap do
+    print(support(i:has(),x,x+gap))
+    print(support(j:has(),x,x+gap))
     push(out, RANGE:new(i, x, x+gap, 
                         support(i:has(),x,x+gap), #i:has(), 
                         support(j:has(),x,x+gap), #j:has())) end
-  map(out,oo)
+  map(out,function(r)  oo{r=r.r,b=r.b} end)
   out = _merge(out)
   out[1].lo = -math.huge
   out[#out].hi =  math.huge
