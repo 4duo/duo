@@ -13,7 +13,7 @@
 <a href="https://github.com/4duo/duo/actions"><img src="https://github.com/4duo/duo/workflows/tests/badge.svg"></a><br>
 <img src="https://img.shields.io/badge/platform-osx,linux-informational?style=flat&logo=linux&logoColor=white&color=blue">
 <a href="https://zenodo.org/badge/latestdoi/452530453"><img src="https://zenodo.org/badge/452530453.svg"></a><br>
-<a href="/LICENSE.md#top">&copy;&nbsp;2022</a> tim menzies
+<a href="/LICENSE.md#top">&copy;2022</a> Tim Menzies
 </p>
 
 # :triangular_flag_on_post: For software engineering to knowledge engineering
