@@ -246,17 +246,16 @@ function go.dist(  i, t,a,b,d)
 function go.half(  a,b,col2)  
   local top =EGS:new(the.file)
   local lefts,rights,left,right,c=top:half() 
+  asserts(top:dist(left,right) > .75) 
   for n,col1 in pairs(lefts.x) do
      col2 = rights.x[n]
      print("")
      for n,r in pairs(col1:ranges(col2)) do
-       print(col.txt, n,r) end end
-  asserts(top:dist(left,right) > .75) end
+       print(col.txt, n,r) end end end
 
 function go.cluster(  a)  
   a=EGS:new(the.file):cluster()  
   asserts(49==#a.lefts.lefts.lefts.here._rows) 
-  show(a)
   end
 
 the(go)

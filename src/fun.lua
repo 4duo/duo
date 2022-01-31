@@ -56,7 +56,7 @@ function fun.brange(t,x)
     mid = (lo + hi)//2
     if t[mid] == x then start,stop = mid,mid end
     if t[mid] >= x then hi=mid-1 else lo=mid+1 end end
-  fun.oo{x=x,lo=t[1],hi=t[#t],mid=mid,start=start,stop=stop}
+  --`;fun.oo{x=x,lo=t[1],hi=t[#t],mid=mid,start=start,stop=stop}
   if t[start+1]==t[start] then
     lo,hi = stop, #t
     while lo <= hi do
