@@ -38,14 +38,6 @@ function RANGE.new(k,col,lo,hi,b,B,r,R)
 
 function RANGE.__lt(i,j) return i:val() < j:val() end
 
-function RANGE.merge(i,j,k,   lo,hi,z,B,R)  
-  lo = math.min(i.lo, j.lo)   
-  hi = math.max(i.hi, j.hi)
-  z=1E-31; B,R = i.B+z, i.R+z
-  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R)   
-  if k.b/B < .01 or k.r/R < .01          then return k end
-  if k:val() > i:val() and k:val() > j:val() then return k end end
-
 function RANGE.show(i)    
   if i.lo == i.hi       then return fmt("%s == %s", i.col.txt, i.lo) end
   if i.lo == -math.huge then return fmt("%s < %s",  i.col.txt, i.hi) end
@@ -57,6 +49,30 @@ function RANGE.val(i,   z,B,R)
 
 function RANGE.selects(i,row,    x) 
   x=row.has[col.at]; return x=="?" or i.lo<=x and x<i.hi end
+
+function RANGE.merge(i,j,k,   lo,hi,z,B,R)  
+  lo = math.min(i.lo, j.lo)   
+  hi = math.max(i.hi, j.hi)
+  z=1E-31; B,R = i.B+z, i.R+z
+  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R)   
+  if k.b/B < .01 or k.r/R < .01          then return k end
+  if k:val() > i:val() and k:val() > j:val() then return k end end
+
+-- Class methods
+function RANGE.merged(b4)
+  local j,tmp,now,after,maybe = 0, {} 
+  while j < #b4 do
+    j = j + 1
+    now, after = b4[j], b4[j+1]
+    if after then
+      maybe = now:merge(after)
+      if maybe then now=maybe; j=j+1 end end
+    push(tmp,now) end
+  return #tmp==#b4 and b4 or RANGE.merged(tmp) end  
+
+function RANGE.uninformative(t) 
+  return #t == 1 and #t[1].lo == -math.huge and #t[1].hi == math.huge end
+
 --- ## NUM
 function NUM.new(k,at,s) 
   return new(k,{n=0, at=at,txt=s,w=s:find"-" and -1 or 1,_has={},
@@ -94,7 +110,6 @@ function NUM.with(i,lo,hi,   t,left,right)
   return  right - left end
 
 --- compare to old above
-local _merge
 function NUM.ranges(i,j)
   local out,lo,hi,gap = {}
   lo  = math.min(i.lo,j.lo)
@@ -103,21 +118,10 @@ function NUM.ranges(i,j)
   for x = lo,hi,gap do
     push(out,--col,lo hi     b               B        r               R
       RANGE:new(i, x, x+gap,i:with(x,x+gap),#i:has(),j:with(x,x+gap),#j:has())) end
-  out = _merge(out)
+  out = RANGE.merged(out)
   out[1].lo = -math.huge
   out[#out].hi =  math.huge
   return out end 
-
-function _merge(b4)
-  local j,tmp,now,after,maybe = 0, {} 
-  while j < #b4 do
-    j = j + 1
-    now, after = b4[j], b4[j+1]
-    if after then
-      maybe = now:merge(after)
-      if maybe then now=maybe; j=j+1 end end
-    push(tmp,now) end
-  return #tmp==#b4 and b4 or _merge(tmp) end 
 
 --- ## SYM
 function SYM.new(k,at,s) return new(k,{n=0,at=at,txt=s,_has={},mode=nil,most=0}) end
