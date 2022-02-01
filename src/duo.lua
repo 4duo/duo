@@ -33,10 +33,10 @@ local   any,  asserts,  brange,  firsts,  fmt,  many,  map,  mapp =
 local   new,  o,  oo,  push,  rows,  seconds,  sort =  
       F.new,F.o,F.oo,F.push,F.rows,F.seconds,F.sort
 -- # RANGE 
---   
--- |**Does** | 1      |: incrementally maintain in numeric counts|
+--     
+-- |**Does** | Create |: models a span from `lo` to `hi`         |
 -- |----     |-------:|------------------------------------------|
--- |         | 2      |: know the mean and standard deviation|
+-- |         | Sort   |: know the mean and standard deviation|
 -- |         | 3      |: support inference; e.g. distance, likelihood|
 -- |**Has**  | n      |: counter of things seen so far|
 -- |         | at     |: column index|
@@ -49,8 +49,21 @@ local   new,  o,  oo,  push,  rows,  seconds,  sort =
 -- |         | w      |: (for minimize) and  1 (for maximize)|
 -- |         | _m2    |: incrementally 2nd moment (internal)|
 -- |**Uses** |        |: [Some](some.html)|   
+--   
+-- ## Create
+-- **RANGE:new(col:NUM|SYM, lo:num, hi:num, b:num, B:num, r:num, R:num):RANGE**      
 function RANGE.new(k,col,lo,hi,b,B,r,R)
   return new(k,{col=col,lo=lo,hi=hi or lo,b=b,B=B,r=r,R=R}) end
+
+-- **i:RANGE:merge(j:RANGE):RANGE?**    
+-- Return a combined range (if it has better value) or return nil.
+function RANGE.merge(i,j,k,   lo,hi,z,B,R)  
+  lo = math.min(i.lo, j.lo)   
+  hi = math.max(i.hi, j.hi)
+  z=1E-31; B,R = i.B+z, i.R+z
+  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R)   
+  if k.b/B < .01 or k.r/R < .01          then return k end
+  if k:val() > i:val() and k:val() > j:val() then return k end end
 
 function RANGE.__lt(i,j) return i:val() < j:val() end
 
@@ -66,14 +79,6 @@ function RANGE.val(i,   z,B,R)
 function RANGE.selects(i,row,    x) 
   x=row.has[col.at]; return x=="?" or i.lo<=x and x<i.hi end
 
-function RANGE.merge(i,j,k,   lo,hi,z,B,R)  
-  lo = math.min(i.lo, j.lo)   
-  hi = math.max(i.hi, j.hi)
-  z=1E-31; B,R = i.B+z, i.R+z
-  k = RANGE:new(i.col,lo,hi,i.b+j.b,i.B,i.r+j.r, j.R)   
-  if k.b/B < .01 or k.r/R < .01          then return k end
-  if k:val() > i:val() and k:val() > j:val() then return k end end
-
 -- Class methods
 function RANGE.merged(b4)
   local j,tmp,now,after,maybe = 0, {} 
@@ -86,8 +91,8 @@ function RANGE.merged(b4)
     push(tmp,now) end
   return #tmp==#b4 and b4 or RANGE.merged(tmp) end  
 
-function RANGE.uninformative(t) 
-  return #t == 1 and #t[1].lo == -math.huge and #t[1].hi == math.huge end
+function RANGE.informative(t) 
+  return not(#t==1 and #t[1].lo==-math.huge and #t[1].hi==math.huge) end
 
 -- # NUM
 function NUM.new(k,at,s) 
@@ -136,8 +141,8 @@ function NUM.ranges(i,j)
       RANGE:new(i, x, x+gap,i:with(x,x+gap),#i:has(),j:with(x,x+gap),#j:has())) end
   out = RANGE.merged(out)
   out[1].lo = -math.huge
-  out[#out].hi =  math.huge
-  return out end 
+  out[#out].hi =  math.huge 
+  return out end
 
 -- # SYM
 function SYM.new(k,at,s) return new(k,{n=0,at=at,txt=s,_has={},mode=nil,most=0}) end
@@ -217,6 +222,31 @@ function EGS.cluster(i, top)
     rights = rights0:cluster(top)
   end
   return {here=i, lefts=lefts, rights=rights, left=left, right=right, c=c} end
+
+local _contrast
+function EGS.contrast(i, top)
+  local t = {here=i}
+  top = top or i
+  if #i._rows >=  2*(#top._rows)^the.enough then
+    local one, two = top:half(i._rows) 
+    local all = {}
+    for n,col1 in pairs(one.x) do
+      local col2 = two.x[n]
+      local rs = col1:ranges(col2)
+      if RANGE.informative(rs) then for _,r in pairs(rs) do push(all,r) end 
+      rs = col2:ranges(col1)
+      if RANGE.informative(rs) then for _,r in pairs(rs) do push(all,r) end 
+    end
+    if #all>0 then
+      local rule, one,two
+      t.rule = sort(all, function(a,b) return a:val() > b:val() end)[1]
+      one    = i:clone()
+      two    = i:clone()
+      for _,row in pairs(i._rows) do
+        (t.rule:selects(row) and one or two):add(row) end
+      if #lefts1._rows  < #i._rows then t.lefts = one:contrast(top) end
+      if #rights1._rows < #i._rows then t.rights= two:contrast(top) end end end end end
+  return t end
 
 function rnd(x) 
   return fmt(type(x)=="number" and x~=x//1 and the.rnd or"%s",x) end
@@ -304,6 +334,7 @@ end
 function go.cluster(  a)  
   a=EGS:new(the.file):cluster()  
   asserts(49==#a.lefts.lefts.lefts.here._rows) 
+  show(a)
   end
 
 if arg[0] == "duo.lua" then the(go) end -- if called as main function
