@@ -32,7 +32,23 @@ local   any,  asserts,  brange,  firsts,  fmt,  many,  map,  mapp =
       F.any,F.asserts,F.brange,F.firsts,F.fmt,F.many,F.map,F.mapp
 local   new,  o,  oo,  push,  rows,  seconds,  sort =  
       F.new,F.o,F.oo,F.push,F.rows,F.seconds,F.sort
---- ## RANGE 
+-- # RANGE 
+--   
+-- |**Does** | 1      |: incrementally maintain in numeric counts|
+-- |----     |-------:|------------------------------------------|
+-- |         | 2      |: know the mean and standard deviation|
+-- |         | 3      |: support inference; e.g. distance, likelihood|
+-- |**Has**  | n      |: counter of things seen so far|
+-- |         | at     |: column index|
+-- |         | name   |: column name|
+-- |         | mu     |: mean seen so far|
+-- |         | lo     |: smallest number seen so far|
+-- |         | hi     |: largest number  seen so far|
+-- |         | sd     |: standard deviation|
+-- |         | some   |: stores a sample of the symbols|
+-- |         | w      |: (for minimize) and  1 (for maximize)|
+-- |         | _m2    |: incrementally 2nd moment (internal)|
+-- |**Uses** |        |: [Some](some.html)|   
 function RANGE.new(k,col,lo,hi,b,B,r,R)
   return new(k,{col=col,lo=lo,hi=hi or lo,b=b,B=B,r=r,R=R}) end
 
@@ -73,7 +89,7 @@ function RANGE.merged(b4)
 function RANGE.uninformative(t) 
   return #t == 1 and #t[1].lo == -math.huge and #t[1].hi == math.huge end
 
---- ## NUM
+-- # NUM
 function NUM.new(k,at,s) 
   return new(k,{n=0, at=at,txt=s,w=s:find"-" and -1 or 1,_has={},
                 ok=false, lo=math.huge, hi=-math.huge}) end
@@ -109,7 +125,7 @@ function NUM.with(i,lo,hi,   t,left,right)
   right= hi > t[#t] and #t or F.bright(t,hi)
   return  right - left end
 
---- compare to old above
+-- compare to old above
 function NUM.ranges(i,j)
   local out,lo,hi,gap = {}
   lo  = math.min(i.lo,j.lo)
@@ -123,7 +139,7 @@ function NUM.ranges(i,j)
   out[#out].hi =  math.huge
   return out end 
 
---- ## SYM
+-- # SYM
 function SYM.new(k,at,s) return new(k,{n=0,at=at,txt=s,_has={},mode=nil,most=0}) end
 function SYM.add(i,x) 
   if x~="?" then 
@@ -140,7 +156,7 @@ function SYM.ranges(i,j,     out)
   return mapp(i._has, 
     function(x,n) return RANGE:new(i,x,x,n,i.n,(j._has[x] or 0),j.n) end) end
 
---- ## EGS
+-- # EGS
 function EGS.new(k,file,   i) 
   i= new(k,{_rows={}, cols=nil, x={},  y={}})
   if file then for row in rows(file) do i:add(row) end end
@@ -214,7 +230,7 @@ function show(t,lvl)
     show(t.lefts, lvl.."|.. ")
     show(t.rights,lvl.."|.. ") end end
 
---- ## Tests and Demo
+-- # Tests
 local no,go={},{}
 
 function go.any(   t,x,n)
